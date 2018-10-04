@@ -1,0 +1,29 @@
+html,
+body,
+header,
+#intro {
+    height: 85%;
+}
+
+#intro {
+    background: url("../img/navbar_background.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.top-nav-collapse {
+  /* background-color: #9B150C; */
+  background-color: #b71c1c;
+}
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background-color: #b71c1c;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+    background-color: #b71c1c;
+  }
+}

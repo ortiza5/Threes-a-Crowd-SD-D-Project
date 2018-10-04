@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<!--Main Navigation-->
+<header>
+  {% include 'includes/_navbar.html'%}
+  <!--Mask-->
+  <div id="intro" class="view">
+      <div class="mask rgba-black-strong">
+          <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+              <div class="row d-flex justify-content-center text-center">
+                  <div class="col-md-10">
+                      <!-- Heading -->
+                      <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Welcome to FastForms</h2>
+                      <!-- Divider -->
+                      <hr class="hr-light">
+                      <!-- Description -->
+                      <h4 class="white-text my-4">Sign in to start filling out forms</h4>
+                      <button type="button" class="btn btn-outline-white">Sign In<i class="fa fa-check ml-2"></i></button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--/.Mask-->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+  <!--Section: Best Features-->
+  <section id="best-features" class="text-center">
+    <!-- Heading -->
+    <h2 class="mb-5 font-weight-bold">Best Features</h2>
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center mb-4">
+        <!--Grid column-->
+        <div class="col-md-8">
+            <!-- Description -->
+            <p class="grey-text">FastForms is the NEW way to fill out forms.</p>
+        </div>
+        <!--Grid column-->
+    </div>
+    <!--Grid row-->
+    <!--Grid row-->
+    <div class="row">
+        <!--Grid column-->
+        <div class="col-md-4 mb-5">
+            <i class="fa fa-address-card fa-4x orange-text"></i>
+            <h4 class="my-4 font-weight-bold">Auto Fill</h4>
+            <p class="grey-text">Tired of writing the same information into form after form after form? Well, with FastForms' Auto Fill feature, you will never have to type your information again!</p>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-4 mb-1">
+            <i class="fa fa-file-text fa-4x orange-text"></i>
+            <h4 class="my-4 font-weight-bold">Every Form</h4>
+            <p class="grey-text">Trekking down to Academy Hall or scouring RPI’s numerous websites for the form you need are both a thing of the past! Now all the forms are conveniently in one place.</p>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-4 mb-1">
+            <i class="fa fa-check-square fa-4x orange-text"></i>
+            <h4 class="my-4 font-weight-bold">Easy Authorization</h4>
+            <p class="grey-text">Getting your Authorization Form signed has never been easier! FastForms lets you avoid the hassel of getting your Authorization Form signed in person.</p>
+        </div>
+        <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </section>
+  <!--Section: Best Features-->
+</main>
+<!--Main layout-->
+{% endblock %}

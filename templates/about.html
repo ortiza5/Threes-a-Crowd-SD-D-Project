@@ -3,64 +3,86 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
-<div class="album py-5 bg-light">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm w-75">
-          <!--Adding Images: Need to go in static folder and use {{url_for('static', filename='img/Name.png')}}
-              Found out how from https://www.youtube.com/watch?v=Y2fMCxLz6wM around 6 minutes in
-          -->
-          <img class="card-img-top" src="{{url_for('static', filename='img/alex.jpg')}}">
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+<header>
+  {% include 'includes/_navbar.html'%}
+  <!--Mask-->
+  <div id="intro" class="view">
+      <div class="mask rgba-black-strong">
+          <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+              <div class="row d-flex justify-content-center text-center">
+                  <div class="col-md-10">
+                      <!-- Heading -->
+                      <h2 class="display-4 font-weight-bold white-text pt-5 mb-2">About</h2>
+                      <!-- Divider -->
+                      <hr class="hr-light">
+                      <!-- Description -->
+                      <h4 class="white-text my-4">Learn about the project and the team.</h4>
+                  </div>
               </div>
-              <small class="text-muted">9 mins</small>
+          </div>
+      </div>
+  </div>
+  <!--/.Mask-->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm w-75">
+            <!--Adding Images: Need to go in static folder and use {{url_for('static', filename='img/Name.png')}}
+                Found out how from https://www.youtube.com/watch?v=Y2fMCxLz6wM around 6 minutes in
+            -->
+            <img class="card-img-top" src="{{url_for('static', filename='img/alex.jpg')}}">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm w-75">
-          <img class="card-img-top" src="{{url_for('static', filename='img/mark.jpg')}}">
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm w-75">
+            <img class="card-img-top" src="{{url_for('static', filename='img/mark.jpg')}}">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm w-75">
-          <img class="card-img-top" src="{{url_for('static', filename='img/jingfei.jpg')}}">
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm w-75">
+            <img class="card-img-top" src="{{url_for('static', filename='img/jingfei.jpg')}}">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
+</main>
+<!--Main layout-->
 {% endblock %}
