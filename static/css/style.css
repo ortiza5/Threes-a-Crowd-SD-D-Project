@@ -11,20 +11,19 @@ header,
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-position: 0px -400px;
 }
 
 .top-nav-collapse {
   /* background-color: #9B150C; */
-  background-color: #999999;
+  background-color: #b71c1c;
 }
 @media (max-width: 768px) {
   .navbar:not(.top-nav-collapse) {
-    background-color: #999999;
+    background-color: #b71c1c;
   }
 }
 @media (min-width: 800px) and (max-width: 850px) {
   .navbar:not(.top-nav-collapse) {
-    background-color: #999999;
+    background-color: #b71c1c;
   }
 }
