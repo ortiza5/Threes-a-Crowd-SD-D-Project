@@ -1,11 +1,22 @@
 html,
 body,
 header,
-#intro {
+#intro-startpage {
     height: 85%;
 }
 
+#intro-home {
+    height: 60%;
+}
+
+#intro-about {
+    height: 60%;
+}
+
 #intro {
+    height: 85%;
+}
+.intros {
     background: url("../img/navbar_background.jpg")no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
