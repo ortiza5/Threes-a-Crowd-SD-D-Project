@@ -14,6 +14,10 @@ def why():
 def about():
     return render_template('about.html')
 
+@app.route('/contact')
+def about():
+    return render_template('contact.html')
+
 # TO-DO:
 # Add templates and routing for Forms and Contact pages
 
