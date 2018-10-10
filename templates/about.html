@@ -7,20 +7,20 @@
   {% include 'includes/_navbar.html'%}
   <!--Mask-->
   <div id="intro-about" class="view intros">
-      <div class="mask rgba-black-strong">
-          <div class="container-fluid d-flex align-items-center justify-content-center h-100">
-              <div class="row d-flex justify-content-center text-center">
-                  <div class="col-md-10">
-                      <!-- Heading -->
-                      <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">About</h2>
-                      <!-- Divider -->
-                      <hr class="hr-light">
-                      <!-- Description -->
-                      <h4 class="white-text my-4" style="font-size:3.3vh;">Learn about the project and the team.</h4>
-                  </div>
-              </div>
+    <div class="mask rgba-black-strong">
+      <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-md-10">
+            <!-- Heading -->
+            <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">About</h2>
+            <!-- Divider -->
+            <hr class="hr-light">
+            <!-- Description -->
+            <h4 class="white-text my-4" style="font-size:3.3vh;">Learn about the project and the team.</h4>
           </div>
+        </div>
       </div>
+    </div>
   </div>
   <!--/.Mask-->
 </header>
@@ -28,103 +28,91 @@
 
 <!--Main layout-->
 <main>
-  <!-- Section: Team -->
-  <section class="team-section text-center my-5">
+  <div class="container">
+    <!-- Section: Team -->
+    <section class="team-section text-center my-5">
 
-    <!-- Section heading -->
-    <h2 class="h1-responsive font-weight-bold my-5">Our team</h2>
-    <!-- Section description -->
-    <p class="grey-text w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>
+      <!-- Section heading -->
+      <h2 class="h1-responsive font-weight-bold my-5">Our team</h2>
+      <!-- Section description -->
+      <p class="grey-text w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>
 
-    <!-- Grid row -->
-    <div class="row text-center">
+      <!-- Grid row -->
+      <div class="row text-center">
 
-      <!-- Grid column -->
-      <div class="col-md-4 mb-md-0 mb-5">
-        <div class="avatar mx-auto">
-          <img src="{{url_for('static', filename='img/alex.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+        <!-- Grid column -->
+        <div class="col-md-4 mb-md-0 mb-5">
+          <div class="avatar mx-auto">
+            <img src="{{url_for('static', filename='img/alex.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+          </div>
+          <h4 class="font-weight-bold dark-grey-text my-4">Alex</h4>
+          <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
+          <!-- Facebook-->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <!--Dribbble -->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
+            <i class="fa fa-dribbble"></i>
+          </a>
+          <!-- Twitter -->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
+            <i class="fa fa-twitter"></i>
+          </a>
         </div>
-        <h4 class="font-weight-bold dark-grey-text my-4">Alex</h4>
-        <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
-        <!-- Facebook-->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-          <i class="fa fa-facebook"></i>
-        </a>
-        <!--Dribbble -->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
-          <i class="fa fa-dribbble"></i>
-        </a>
-        <!-- Twitter -->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-          <i class="fa fa-twitter"></i>
-        </a>
-      </div>
-      <!-- Grid column -->
+        <!-- Grid column -->
 
-      <!-- Grid column -->
-      <div class="col-md-4 mb-md-0 mb-5">
-        <div class="avatar mx-auto">
-          <img src="{{url_for('static', filename='img/mark.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+        <!-- Grid column -->
+        <div class="col-md-4 mb-md-0 mb-5">
+          <div class="avatar mx-auto">
+            <img src="{{url_for('static', filename='img/mark.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+          </div>
+          <h4 class="font-weight-bold dark-grey-text my-4">Mark</h4>
+          <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
+          <!--Email-->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-email">
+            <i class="fa fa-envelope"></i>
+          </a>
+          <!-- Facebook-->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <!-- GitHub-->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-git">
+            <i class="fa fa-github"></i>
+          </a>
         </div>
-        <h4 class="font-weight-bold dark-grey-text my-4">Mark</h4>
-        <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
-        <!--Email-->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-email">
-          <i class="fa fa-envelope"></i>
-        </a>
-        <!-- Facebook-->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-          <i class="fa fa-facebook"></i>
-        </a>
-        <!-- GitHub-->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-git">
-          <i class="fa fa-github"></i>
-        </a>
-      </div>
-      <!-- Grid column -->
+        <!-- Grid column -->
 
-      <!-- Grid column -->
-      <div class="col-md-4">
-        <div class="avatar mx-auto">
-          <img src="{{url_for('static', filename='img/jingfei.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+        <!-- Grid column -->
+        <div class="col-md-4">
+          <div class="avatar mx-auto">
+            <img src="{{url_for('static', filename='img/jingfei.jpg')}}" class="rounded z-depth-1-half" alt="Sample avatar">
+          </div>
+          <h4 class="font-weight-bold dark-grey-text my-4">Jingfei</h4>
+          <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
+          <!--Linkedin -->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-li">
+            <i class="fa fa-linkedin "></i>
+          </a>
+          <!-- Twitter -->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
+            <i class="fa fa-twitter "></i>
+          </a>
+          <!--Pinterest -->
+          <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-pin">
+            <i class="fa fa-pinterest "></i>
+          </a>
         </div>
-        <h4 class="font-weight-bold dark-grey-text my-4">Jingfei</h4>
-        <h6 class="text-uppercase grey-text mb-3"><strong>Developer</strong></h6>
-        <!--Linkedin -->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-li">
-          <i class="fa fa-linkedin "></i>
-        </a>
-        <!-- Twitter -->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-          <i class="fa fa-twitter "></i>
-        </a>
-        <!--Pinterest -->
-        <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-pin">
-          <i class="fa fa-pinterest "></i>
-        </a>
+        <!-- Grid column -->
+
       </div>
-      <!-- Grid column -->
+      <!-- Grid row -->
 
-    </div>
-    <!-- Grid row -->
+    </section>
+    <!-- Section: Team v.2 -->
 
-  </section>
-  <!-- Section: Team v.2 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  </div>
 </main>
 <!--Main layout-->
 {% endblock %}

@@ -18,6 +18,10 @@ def about():
 def contact():
     return render_template('contact.html')
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 # TO-DO:
 # Add templates and routing for Forms and Contact pages
 
