@@ -28,13 +28,14 @@
 
 <!--Main layout-->
 <main>
-  <!--Section: Contact-->
-  <section class="section">
+  <div class="container">
+    <!--Section: Contact-->
+    <section class="section">
 
-    <!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold text-center my-5">Contact us</h2>
-    <!--Section description-->
-    <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Is something not working correctly? Do you have a feature request? Let us know.</p>
+      <!--Section heading-->
+      <h2 class="h1-responsive font-weight-bold text-center my-5">Contact us</h2>
+      <!--Section description-->
+      <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Is something not working correctly? Do you have a feature request? Let us know.</p>
 
       <div class="row">
 
@@ -63,6 +64,25 @@
               </div>
               <!--Grid column-->
 
+            </div>
+            <!--Grid row-->
+
+            <!-- Subject -->
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="md-form mb-0">
+                  <select class="mdb-select md-form colorful-select dropdown-primary" multiple searchable="Search here..">
+                    <option value="" disabled selected>Select your reason for contacting us</option>
+                    <option value="1">Question</option>
+                    <option value="2">Report a bug</option>
+                    <option value="3">Feature request</option>
+                    <option value="4">General feedback</option>
+                    <option value="5">Other</option>
+                  </select>
+                  <label>Label example</label>
+                </div>
+              </div>
             </div>
             <!--Grid row-->
 
@@ -124,8 +144,8 @@
     </section>
     <!--Section: Contact-->
 
+  </div>
 
-
-  </main>
-  <!--Main layout-->
-  {% endblock %}
+</main>
+<!--Main layout-->
+{% endblock %}
