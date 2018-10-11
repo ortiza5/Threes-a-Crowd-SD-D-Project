@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<header>
+  {% include 'includes/_navbar.html'%}
+  <!--Mask-->
+  <div id="intro-about" class="view intros">
+    <div class="mask rgba-black-strong">
+      <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-md-10">
+            <!-- Heading -->
+            <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Forms</h2>
+            <!-- Divider -->
+            <hr class="hr-light">
+            <!-- Description -->
+            <h4 class="white-text my-4" style="font-size:3.3vh;">Find the form you want to fill out.</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.Mask-->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+  <div class="container">
+    <!-- Projects section v.1 -->
+    <section class="text-center my-5">
+
+      <!-- Section heading -->
+      <h2 class="h1-responsive font-weight-bold my-5">Registrar</h2>
+      <!-- Divider -->
+      <hr class="hr-dark">
+
+      <!-- Grid row -->
+      <div class="row text-center">
+
+
+        <!--================THROW AWAY CODE. NEED TO IMPLEMENT CORRECTLY============================-->
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+          <!--Featured image-->
+          <div class="view overlay rounded z-depth-1">
+            <img src="{{url_for('static', filename='img/authorization_form_thumbnail.jpg')}}" class="img-fluid" alt="Sample project image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--Excerpt-->
+          <div class="card-body pb-0">
+            <h4 class="font-weight-bold my-3">Authorization Form</h4>
+            <p class="grey-text"> Get permission to be added to a course with a Schedule Conflict, Credit Overload, or the Section is Closed.
+            </p>
+            <a class="btn btn-indigo btn-sm" href="/form1"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+          </div>
+        </div>
+        <!-- Grid column -->
+        <!--================THROW AWAY CODE. NEED TO IMPLEMENT CORRECTLY============================-->
+
+
+
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+          <!--Featured image-->
+          <div class="view overlay rounded z-depth-1">
+            <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--Excerpt-->
+          <div class="card-body pb-0">
+            <h4 class="font-weight-bold my-3">Title of the news</h4>
+            <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
+            </p>
+            <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
+          </div>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-6">
+          <!--Featured image-->
+          <div class="view overlay rounded z-depth-1">
+            <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid" alt="Sample project image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--Excerpt-->
+          <div class="card-body pb-0">
+            <h4 class="font-weight-bold my-3">Title of the news</h4>
+            <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
+            </p>
+            <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
+          </div>
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!-- Projects section v.1 -->
+
+  </div>
+
+</main>
+<!--Main layout-->
+{% endblock %}

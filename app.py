@@ -26,8 +26,18 @@ def login():
 def register():
 	return render_template('register.html')
 
-# TO-DO:
-# Add templates and routing for Forms and Contact pages
+@app.route('/forms')
+def forms():
+	return render_template('forms.html')
+
+
+# THROW AWAY CODE ========================
+@app.route('/form1')
+def form1():
+	return render_template('form1.html')
+# THROW AWAY CODE ========================
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
