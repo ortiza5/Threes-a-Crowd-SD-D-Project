@@ -18,9 +18,16 @@ def about():
 def contact():
     return render_template('contact.html')
 
-@app.route('/login')
+# Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect('/home')
+    return render_template('login.html', error=error)
 
 @app.route('/register')
 def register():
