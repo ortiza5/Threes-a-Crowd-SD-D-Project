@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, redirect, \
 import pymysql
 from passlib.hash import sha256_crypt
 from config import *
+from tempdata import FormLinks
 
 
 app = Flask(__name__)
@@ -79,6 +80,11 @@ def form1():
 # THROW AWAY CODE ========================
 
 
+# if __name__ != '__main__':
+#
+#     app.config['SESSION_TYPE'] = 'filesystem'
+#     sess.init_app(app)
+#     app.run(host="0.0.0.0", debug=True)
 
 if __name__ == '__main__':
 
