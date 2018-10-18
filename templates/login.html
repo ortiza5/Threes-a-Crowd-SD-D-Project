@@ -13,17 +13,17 @@
   <div class="card-body px-lg-5 pt-0">
 
     <!-- Form -->
-    <form class="text-center" style="color: #B71C1C">
+    <form class="text-center" style="color: #B71C1C" action="" method="POST">
 
       <!-- Email -->
       <div class="form-group">
-        <input type="email" id="materialLoginFormEmail" class="form-control">
-        <label for="materialLoginFormEmail">E-mail</label>
+        <input type="text" id="materialLoginFormEmail" class="form-control" name="username" value={{request.form.username}}>
+        <label for="materialLoginFormEmail">RCS ID</label>
       </div>
 
       <!-- Password -->
       <div class="md-form">
-        <input type="password" id="materialLoginFormPassword" class="form-control">
+        <input type="password" id="materialLoginFormPassword" class="form-control" name="password" value={{request.form.password}}>
         <label for="materialLoginFormPassword">Password</label>
       </div>
 
@@ -96,6 +96,3 @@
     </div>
   </body>
 </html>-->
-
-
-
