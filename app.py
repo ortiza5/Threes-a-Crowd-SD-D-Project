@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
-from tempdata import FormLinks
-=======
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
 import pymysql
 from passlib.hash import sha256_crypt
 from config import *
-
->>>>>>> b4ed6727e79bcb3bd9a0ad295d3b55e8ddda832c
+from tempdata import FormLinks
 
 app = Flask(__name__)
 app.secret_key=SECRET
@@ -44,7 +39,7 @@ def login():
         # execute SQL query using execute() method.
         result = cursor.execute('SELECT * FROM user WHERE rcsid = %s', [username])
 
-        if result>0:    
+        if result>0:
             # Fetch a single row using fetchone() method.
             data = cursor.fetchone()
             password = data[2]
@@ -65,7 +60,7 @@ def login():
             print('wrong name')
             error = 'Username not found'
             return render_template('login.html', error=error)
-        
+
     return render_template('login.html')
 
 @app.route('/register')
@@ -86,7 +81,7 @@ def form1():
 
 
 if __name__ == '__main__':
-    
+
     app.config['SESSION_TYPE'] = 'filesystem'
     sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
