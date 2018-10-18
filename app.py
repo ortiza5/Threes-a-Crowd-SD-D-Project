@@ -3,7 +3,7 @@ from flask import Flask, render_template, flash, redirect, \
 import pymysql
 from passlib.hash import sha256_crypt
 from config import *
-from tempdata import FormLinks
+
 
 app = Flask(__name__)
 app.secret_key=SECRET
