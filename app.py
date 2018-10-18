@@ -6,7 +6,7 @@ from config import *
 
 
 app = Flask(__name__)
-app.secret_key=SECRET
+app.secret_key=SECRET 
 
 # Index
 @app.route('/')
