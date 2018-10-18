@@ -42,12 +42,8 @@ def login():
         if result>0:    
             # Fetch a single row using fetchone() method.
             data = cursor.fetchone()
-            print('\n')
-            print(data)
-            print('\n')
             password = data[2]
             # Compare Passwords
-            print(password)
             if sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
                 session['username'] = username
