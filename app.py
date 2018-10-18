@@ -83,4 +83,5 @@ def form1():
 if __name__ == '__main__':
     app.secret_key=SECRET
     app.config['SESSION_TYPE'] = 'filesystem'
+    sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
