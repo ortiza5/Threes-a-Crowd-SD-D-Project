@@ -26,131 +26,133 @@
 
 <!--Main layout-->
 <main>
-  <div class="container">
-    <!--Accordion wrapper-->
-    <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+  <!--Accordion wrapper-->
+  <div class="accordion my-4" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-      <!-- Generate Cards to for the different categories -->
-      {% for cat in categories %}
-        <!-- Accordion card -->
-        <div class="card">
+    <!-- Generate Cards to for the different categories -->
+    {% for cat in categories %}
+    <!-- Accordion card -->
+    <div class="card">
 
-          <!-- Card header -->
-          <div class="card-header" role="tab" id="headingOne">
-            {% if cat == categories[0] %}
-              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            {% else %}
-              <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            {% endif %}
-              <h5 class="mb-0">
-                {{cat}} <i class="fa fa-angle-down rotate-icon"></i>
-              </h5>
-            </a>
-          </div>
+      <!-- Card header -->
+      <div class="card-header elegant-color" role="tab" id="headingOne">
+        {% if cat == categories[0] %}
+          <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {% else %}
+          <a class="collapsed" data-toggle="collapse" href={{"#"+accordianIDs[cat].collapseID}} aria-expanded="false" aria-controls={{accordianIDs[cat].collapseID}}>
+        {% endif %}
+            <h5 class="white-text text-center my-2">
+              {{cat}} <i class="fa fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
 
-          <!-- Card body -->
-          {% if cat == categories[0] %}
-            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
-          {% else %}
-            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
-          {% endif %}
+        <!-- Card body -->
+        {% if cat == categories[0] %}
+          <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
+        {% else %}
+          <div id={{accordianIDs[cat].collapseID}} class="collapse" role="tabpanel" aria-labelledby={{accordianIDs[cat].headingID}} data-parent="#accordionEx">
+        {% endif %}
 
+            <!-- ====================Form Section Heading==================== -->
             <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
-              moon officia aute,
-              non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-              moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
-              et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-              Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-              synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              <div class="container">
+              <section class="text-center my-5">
+                <!-- Section heading -->
+                <h2 class="h1-responsive font-weight-bold my-5">{{cat}}</h2>
+                <!-- Divider -->
+                <hr class="hr-dark">
+            <!-- ==================End Form Section Heading================== -->
+
+            <!-- ===================Generated Gallery View=================== -->
+            {% set count = namespace(a=0) %}
+            {% set rowDiv = namespace(a=0) %}
+            {% for form in forms %}
+              {% if form.category == cat %}
+                {% if count.a % 3 == 0 %}
+                  <!-- Grid row -->
+                  <div class="row text-center">
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+                      <!--Featured image-->
+                      <div class="view overlay rounded z-depth-1">
+                        <img src="{{url_for('static', filename='img/formthumbs/authorization_form_thumbnail.jpg')}}" class="img-fluid" alt="Sample project image">
+                        <a>
+                          <div class="mask rgba-white-slight"></div>
+                        </a>
+                      </div>
+                      <!--Excerpt-->
+                      <div class="card-body pb-0">
+                        <h4 class="font-weight-bold my-3">Authorization Form</h4>
+                        <p class="grey-text"> Get permission to be added to a course with a Schedule Conflict, Credit Overload, or the Section is Closed.
+                        </p>
+                        <a class="btn btn-indigo btn-sm" href="/form1"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+                    {% set rowDiv.a = 1 %}
+                  {% elif count.a % 3 == 1 %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
+                      <!--Featured image-->
+                      <div class="view overlay rounded z-depth-1">
+                        <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
+                        <a>
+                          <div class="mask rgba-white-slight"></div>
+                        </a>
+                      </div>
+                      <!--Excerpt-->
+                      <div class="card-body pb-0">
+                        <h4 class="font-weight-bold my-3">Title of the news</h4>
+                        <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
+                        </p>
+                        <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+                  {% elif count.a == 2 %}
+                      <!-- Grid column -->
+                      <div class="col-lg-4 col-md-6">
+                        <!--Featured image-->
+                        <div class="view overlay rounded z-depth-1">
+                          <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid" alt="Sample project image">
+                          <a>
+                            <div class="mask rgba-white-slight"></div>
+                          </a>
+                        </div>
+                        <!--Excerpt-->
+                        <div class="card-body pb-0">
+                          <h4 class="font-weight-bold my-3">Title of the news</h4>
+                          <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
+                          </p>
+                          <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
+                        </div>
+                      </div>
+                      <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+                  {% set rowDiv.a = 0 %}
+                  {% endif %}
+
+                  {% if rowDiv.a == 1 %}
+                    </div>
+                    <!-- Grid row -->
+                  {% endif %}
+
+                <!-- incrementing the count variable -->
+                {% set count.a = count.a + 1 %}
+              {% endif %}
+            {% endfor %}
+              </section>
+              </div>
             </div>
           </div>
         </div>
         <!-- Accordion card -->
-      {% endfor %}
-
-      <!-- Projects section v.1 -->
-      <section class="text-center my-5">
-        <!-- Section heading -->
-        <h2 class="h1-responsive font-weight-bold my-5">Registrar</h2>
-        <!-- Divider -->
-        <hr class="hr-dark">
-
-        <!-- Grid row -->
-        <div class="row text-center">
-
-
-          <!--================THROW AWAY CODE. NEED TO IMPLEMENT CORRECTLY============================-->
-          <!-- Grid column -->
-          <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
-            <!--Featured image-->
-            <div class="view overlay rounded z-depth-1">
-              <img src="{{url_for('static', filename='img/formthumbs/authorization_form_thumbnail.jpg')}}" class="img-fluid" alt="Sample project image">
-              <a>
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-            <!--Excerpt-->
-            <div class="card-body pb-0">
-              <h4 class="font-weight-bold my-3">Authorization Form</h4>
-              <p class="grey-text"> Get permission to be added to a course with a Schedule Conflict, Credit Overload, or the Section is Closed.
-              </p>
-              <a class="btn btn-indigo btn-sm" href="/form1"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
-            </div>
-          </div>
-          <!-- Grid column -->
-          <!--================THROW AWAY CODE. NEED TO IMPLEMENT CORRECTLY============================-->
-
-
-
-          <!-- Grid column -->
-          <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
-            <!--Featured image-->
-            <div class="view overlay rounded z-depth-1">
-              <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" class="img-fluid" alt="Sample project image">
-              <a>
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-            <!--Excerpt-->
-            <div class="card-body pb-0">
-              <h4 class="font-weight-bold my-3">Title of the news</h4>
-              <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
-              </p>
-              <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
-            </div>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-lg-4 col-md-6">
-            <!--Featured image-->
-            <div class="view overlay rounded z-depth-1">
-              <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid" alt="Sample project image">
-              <a>
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-            <!--Excerpt-->
-            <div class="card-body pb-0">
-              <h4 class="font-weight-bold my-3">Title of the news</h4>
-              <p class="grey-text">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.
-              </p>
-              <a class="btn btn-indigo btn-sm"><i class="fa fa-clone left"></i> View project</a>
-            </div>
-          </div>
-          <!-- Grid column -->
-
-        </div>
-        <!-- Grid row -->
-
-      </section>
-      <!-- Projects section v.1 -->
-
-    </div>
-    <!--/.Accordion wrapper-->
-  </div>
-
-</main>
-<!--Main layout-->
-{% endblock %}
+        {% endfor %}
+      </div>
+      <!--/.Accordion wrapper-->
+    </main>
+    <!--Main layout-->
+    {% endblock %}

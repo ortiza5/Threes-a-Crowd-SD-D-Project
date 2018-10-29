@@ -75,24 +75,19 @@ def forms():
     for form in forms:
         categories.add(form['category'])
     categories = list(categories)
+    categories.sort()
 
     # Generate Different Accordian View ID groups for categories
     # Currently have a limit set to 10 different form categories
     numberWords = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten']
-    accordianIDs = []
-    collapseID = "collapse"
-    collapseShowID = "collapse show"
-    headingID = "heading"
+    accordianIDs = {}
     i = 0
     for category in categories:
-        if (i == 0):
-            accordianIDs.append({'headingID':(headingID + numberWords[i]), \
-                                'collapseID':(collapseID + numberWords[i]), \
-                                'classID':'', \
-                                'initialStateID':''
-                                })
+        accordianIDs[category] = {'headingID':('heading' + numberWords[i]), \
+                            'collapseID':('collapse' + numberWords[i])}
+        i = i + 1
 
-    return render_template('forms.html', categories = categories)
+    return render_template('forms.html', categories = categories, accordianIDs = accordianIDs, forms = forms)
 
 
 # THROW AWAY CODE ========================
