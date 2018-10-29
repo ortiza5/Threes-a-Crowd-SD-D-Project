@@ -12,7 +12,7 @@ def FormLinks():
             'pdflink':'http://www.rpi.edu/dept/srfs/AuthorizationFrm.pdf'
         },
         {
-            'category':'Registrar',
+            'category':'Registrar2',
             'subcategory':'',
             'title':'Advanced Manufacturing Certificate Approval Form',
             'description':tempDescription,

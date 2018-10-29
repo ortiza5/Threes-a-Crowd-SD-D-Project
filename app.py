@@ -70,7 +70,29 @@ def register():
 
 @app.route('/forms')
 def forms():
-	return render_template('forms.html', forms = FormLinks)
+    categories = set([])
+    forms = FormLinks()
+    for form in forms:
+        categories.add(form['category'])
+    categories = list(categories)
+
+    # Generate Different Accordian View ID groups for categories
+    # Currently have a limit set to 10 different form categories
+    numberWords = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten']
+    accordianIDs = []
+    collapseID = "collapse"
+    collapseShowID = "collapse show"
+    headingID = "heading"
+    i = 0
+    for category in categories:
+        if (i == 0):
+            accordianIDs.append({'headingID':(headingID + numberWords[i]), \
+                                'collapseID':(collapseID + numberWords[i]), \
+                                'classID':'', \
+                                'initialStateID':''
+                                })
+
+    return render_template('forms.html', categories = categories)
 
 
 # THROW AWAY CODE ========================
