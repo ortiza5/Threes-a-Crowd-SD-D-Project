@@ -84,6 +84,9 @@ def forms():
         if (i != 0):
             while (thumbNumber == thumbs[i-1]):
                 thumbNumber = random.choice(choices)
+        if (i > 1):
+            while ((thumbNumber == thumbs[i-1]) or (thumbNumber == thumbs[i-2])):
+                thumbNumber = random.choice(choices)
         thumbs.append(thumbNumber)
         i = i + 1
     categories = list(categories)
