@@ -1,41 +1,62 @@
-<!-- Default form register -->
-<form class="text-center border border-light p-5">
+{% extends 'layout.html' %}
 
-    <p class="h4 mb-4">Sign up</p>
-
-    <div class="form-row mb-4">
-        <div class="col">
-            <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
-        </div>
+{% block body %}
+<header>
+  {% include 'includes/_navbar.html'%}
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}})">
+    <div class="flex-center white-text rgba-black-strong">
+      <ul class="my-4 list-unstyled">
+        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Register</h2>
+        </ul>
+      </div>
     </div>
+    <div style="background-color: #b71c1c;min-height: 15px;"></div>
+</header>
+<!--Main Navigation-->
 
-    <!-- RCS email -->
-    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Rensselaer E-mail Address">
+<!--Main layout-->
+<main>
+  <!-- Default form register -->
+  <form class="text-center border border-light p-5">
 
-    <!-- Password -->
-    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-        6 or more characters
-    </small>
+      <!-- <p class="h4 mb-4">Sign up</p> -->
 
-    <!-- RIN -->
-    <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="RIN" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+      <div class="form-row mb-4">
+          <div class="col">
+              <!-- First name -->
+              <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+          </div>
+          <div class="col">
+              <!-- Last name -->
+              <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
+          </div>
+      </div>
 
-    <!-- Sign up button -->
-    <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+      <!-- RCS email -->
+      <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Rensselaer E-mail Address">
 
-    <hr>
+      <!-- Password -->
+      <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+      <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+          6 or more characters
+      </small>
 
-    <!-- Terms of service -->
-    <p>By clicking
-        <em>Sign up</em> you agree to our
-        <a href="" target="_blank">terms of service</a> and
-        <a href="" target="_blank">terms of service</a>. </p>
+      <!-- RIN -->
+      <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="RIN" aria-describedby="defaultRegisterFormPhoneHelpBlock">
 
-</form>
-<!-- Default form register -->
+      <!-- Sign up button -->
+      <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+
+      <hr>
+
+      <!-- Terms of service -->
+      <p>By clicking
+          <em>Sign up</em> you agree to our
+          <a href="" target="_blank">terms of service</a> and
+          <a href="" target="_blank">terms of service</a>. </p>
+
+  </form>
+  <!-- Default form register -->
+</main>
+<!--Main layout-->
+{% endblock %}
