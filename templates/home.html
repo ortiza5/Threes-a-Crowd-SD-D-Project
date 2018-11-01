@@ -3,25 +3,16 @@
 {% block body %}
 <header>
   {% include 'includes/_navbar.html'%}
-  <!--Mask-->
-  <div id="intro-home" class="view intros">
-      <div class="mask rgba-black-strong">
-          <div class="container-fluid d-flex align-items-center justify-content-center h-100">
-              <div class="row d-flex justify-content-center text-center">
-                  <div class="col-md-10">
-                      <!-- Heading -->
-                      <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Home</h2>
-                      <!-- Divider -->
-                      <hr class="hr-light">
-                      <!-- Description -->
-                      <h4 class="white-text my-4" style="font-size:3.3vh;">View your completed forms and their status</h4>
-                  </div>
-              </div>
-          </div>
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}})">
+    <div class="flex-center white-text rgba-black-light">
+      <ul class="my-4 list-unstyled">
+        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Home</h2>
+        <hr class="hr-light">
+        <h4 class="white-text my-4" style="font-size:3.3vh;">View your completed forms and their status.</h4>
+        </ul>
       </div>
-  </div>
-  <!--/.Mask-->
-
+    </div>
+    <div style="background-color: #b71c1c;min-height: 15px;"></div>
 </header>
 <!--Main Navigation-->
 

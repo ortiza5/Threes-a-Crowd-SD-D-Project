@@ -1,27 +1,6 @@
-html,
-body,
-header,
-#intro-startpage {
-    height: 85%;
-}
 
-#intro-home {
-    height: 60%;
-}
-
-#intro-about {
-    height: 60%;
-}
-
-#intro {
-    height: 85%;
-}
-.intros {
-    background: url("../img/navbar_background.jpg")no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+header {
+    background-color: #b71c1c;
 }
 
 .top-nav-collapse {
@@ -37,4 +16,8 @@ header,
   .navbar:not(.top-nav-collapse) {
     background-color: #b71c1c;
   }
+}
+
+.streak.streak-photo {
+background-attachment: fixed;
 }
