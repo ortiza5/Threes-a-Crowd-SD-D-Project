@@ -72,7 +72,7 @@ def register():
 def forms():
     # Generate random thumbnails order for forms
     thumbs = []
-    choices = ['1', '2', '3', '4', '5']
+    choices = ['1', '2', '3', '4', '5','6']
     i = 0
     # Find all the different categories
     categories = set([])
@@ -81,11 +81,11 @@ def forms():
         categories.add(form['category'])
         thumbNumber = random.choice(choices)
         # Avoid same image twice in a row
-        if (i != 0):
+        if ((i == 1) or (i == 2)):
             while (thumbNumber == thumbs[i-1]):
                 thumbNumber = random.choice(choices)
-        if (i > 1):
-            while ((thumbNumber == thumbs[i-1]) or (thumbNumber == thumbs[i-2])):
+        if (i > 2):
+            while ((thumbNumber == thumbs[i-1]) or (thumbNumber == thumbs[i-2])or (thumbNumber == thumbs[i-3])):
                 thumbNumber = random.choice(choices)
         thumbs.append(thumbNumber)
         i = i + 1
