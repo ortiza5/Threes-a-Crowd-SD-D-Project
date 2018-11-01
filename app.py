@@ -1,6 +1,6 @@
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
-import pymysql
+import pymysql, random
 from passlib.hash import sha256_crypt
 from config import *
 from tempdata import FormLinks
@@ -70,10 +70,22 @@ def register():
 
 @app.route('/forms')
 def forms():
+    # Generate random thumbnails order for forms
+    thumbs = []
+    choices = ['1', '2', '3', '4', '5']
+    i = 0
+    # Find all the different categories
     categories = set([])
     forms = FormLinks()
     for form in forms:
         categories.add(form['category'])
+        thumbNumber = random.choice(choices)
+        # Avoid same image twice in a row
+        if (i != 0):
+            while (thumbNumber == thumbs[i-1]):
+                thumbNumber = random.choice(choices)
+        thumbs.append(thumbNumber)
+        i = i + 1
     categories = list(categories)
     categories.sort()
 
@@ -86,8 +98,7 @@ def forms():
         accordianIDs[category] = {'headingID':('heading' + numberWords[i]), \
                             'collapseID':('collapse' + numberWords[i])}
         i = i + 1
-
-    return render_template('forms.html', categories = categories, accordianIDs = accordianIDs, forms = forms)
+    return render_template('forms.html', categories = categories, accordianIDs = accordianIDs, forms = forms, thumbs = thumbs)
 
 
 # THROW AWAY CODE ========================
