@@ -2,8 +2,21 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<header>
+  {% include 'includes/_navbar.html'%}
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}})">
+    <div class="flex-center white-text rgba-black-strong">
+      <ul class="my-4 list-unstyled">
+        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Login</h2>
+        </ul>
+      </div>
+    </div>
+    <div style="background-color: #b71c1c;min-height: 15px;"></div>
+</header>
+
+
 <!-- Material form login -->
-<div class="container">
+<div class="container mt-4">
 
   <h5 class="card-header info-color white-text text-center py-4 red darken-4">
     <strong>Sign in</strong>
@@ -16,7 +29,7 @@
     <form class="text-center" style="color: #B71C1C" action="" method="POST">
 
       <!-- Email -->
-      <div class="form-group">
+      <div class="md-form">
         <input type="email" id="materialLoginFormEmail" class="form-control" name="username" value={{request.form.username}}>
         <label for="materialLoginFormEmail">RPI E-mail Address</label>
       </div>
@@ -42,7 +55,7 @@
       </div>
 
       <!-- Sign in button -->
-      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 btn-outline-grey" type="submit">Sign in</button>
 
       <!-- Register -->
       <p>Not a member?
@@ -50,7 +63,7 @@
       </p>
 
       <!-- Social login -->
-      <p>or sign in with:</p>
+      <!-- <p>or sign in with:</p>
       <a type="button" class="btn-floating btn-fb btn-sm">
         <i class="fa fa-facebook"></i>
       </a>
@@ -62,7 +75,7 @@
       </a>
       <a type="button" class="btn-floating btn-git btn-sm">
         <i class="fa fa-github"></i>
-      </a>
+      </a> -->
 
     </form>
     <!-- Form -->
