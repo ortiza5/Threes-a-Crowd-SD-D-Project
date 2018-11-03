@@ -3,7 +3,7 @@
 {% block body %}
 <header>
   {% include 'includes/_navbar.html'%}
-  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}})">
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
     <div class="flex-center white-text rgba-black-strong">
       <ul class="my-5 list-unstyled">
         <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Authorization Form</h2>
