@@ -129,6 +129,7 @@ def formfill(id,title):
             newdict['type'] = row[1]
             newdict['question'] = row[2]
             newdict['qid'] = 'f'+str(row[0])+'q'+str(row[3])
+            newdict['typeparam'] = row[4]
             formQuestions.append(newdict)
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
