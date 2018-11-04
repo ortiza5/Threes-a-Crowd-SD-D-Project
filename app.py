@@ -76,7 +76,12 @@ def forms():
     i = 0
     # Find all the different categories
     categories = set([])
+
+    # Jingfei add here and replacec line below
     forms = FormLinks()
+
+
+
     for form in forms:
         categories.add(form['category'])
         thumbNumber = random.choice(choices)
