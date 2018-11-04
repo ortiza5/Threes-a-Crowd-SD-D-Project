@@ -22,18 +22,80 @@
     <section class="section">
 
       <form id="contact-form" name="contact-form" method="POST">
-
-        <!--Grid row-->
-        <div class="row">
-            <div class="col-md-12">
+        <!--Go through all questions and render them-->
+        {% for question in formQuestions %}
+          {% if question.type == 'instruction' %}
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-md-12">
                 <div class="md-form mb-0">
-                    <input type="text" id="subject" name="subject" class="form-control">
-                    <label for="subject" class="">Subject</label>
+                  <p>{{question.question}}</p>
+                </div>
+              </div>
+            </div>
+            <!--Grid row-->
+
+          {% elif question.type == 'title-left' %}
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="md-form mb-0">
+                  <p class="text-left font-weight-bold">{{question.question}}</p>
+                </div>
+              </div>
+            </div>
+            <!--Grid row-->
+
+          {% elif question.type == 'title-center' %}
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="md-form mb-0">
+                  <p class="text-center font-weight-bold">{{question.question}}</p>
+                </div>
+              </div>
+            </div>
+            <!--Grid row-->
+
+          {% elif question.type == 'divider' %}
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="md-form mb-0">
+                  <hr class="hr-dark">
+                </div>
+              </div>
+            </div>
+            <!--Grid row-->
+
+          {% elif question.type == 'text' %}
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-form mb-0">
+                        <input type="text" id={{question.qid}} name={{question.qid}} class="form-control">
+                        <label for={{question.qid}} class="">{{question.question}}</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--Grid row-->
+            <!--Grid row-->
 
+          {% elif question.type == 'checkbox' %}
+
+          {% elif question.type == 'radiobutton' %}
+
+          {% elif question.type == 'select' %}
+
+          {% elif question.type == 'crnsearch' %}
+
+          {% elif question.type == 'comment' %}
+
+          {% elif question.type == 'email' %}
+
+          {% elif question.type == 'button' %}
+
+          {% endif %}
+        {% endfor %}
       </form>
 
       <div class="text-center text-md-left">
