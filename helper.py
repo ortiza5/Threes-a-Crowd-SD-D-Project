@@ -15,6 +15,7 @@ def query_forminfo():
         # print(data[1][2])
         for row in data:
             newdict = {}
+            newdict['fid'] = row[0]
             newdict['category'] = row[1]
             newdict['title'] = row[2]
             newdict['description'] = row[3]
