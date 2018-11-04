@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, redirect, \
 import pymysql, random
 from passlib.hash import sha256_crypt
 from config import *
+from helper import *
 from tempdata import FormLinks
 
 
@@ -77,8 +78,11 @@ def forms():
     # Find all the different categories
     categories = set([])
 
-    # Jingfei add here and replacec line below
-    forms = FormLinks()
+    # Query the 'forminfo' table and store all forminfo
+    # in a list of dictionaries
+    forms = query_forminfo()
+
+    # forms = FormLinks()
 
 
 
@@ -116,14 +120,12 @@ def form1():
 # THROW AWAY CODE ========================
 
 
-# if __name__ != '__main__':
-#
-#     app.config['SESSION_TYPE'] = 'filesystem'
-#     sess.init_app(app)
-#     app.run(host="0.0.0.0", debug=True)
-
-if __name__ == '__main__':
-
+if __name__ != '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
     sess.init_app(app)
+    app.run(host="0.0.0.0", debug=True)
+
+if __name__ == '__main__':
+    app.config['SESSION_TYPE'] = 'filesystem'
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
