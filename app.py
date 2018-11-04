@@ -113,11 +113,24 @@ def forms():
     return render_template('forms.html', categories = categories, accordianIDs = accordianIDs, forms = forms, thumbs = thumbs)
 
 
-# THROW AWAY CODE ========================
-@app.route('/form1')
-def form1():
-	return render_template('form1.html')
-# THROW AWAY CODE ========================
+@app.route('/form/<int:id>/<string:title>', methods=['GET', 'POST'])
+def formfill(id,title):
+    formQuestions = []
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # execute SQL query using execute() method.
+    result = cursor.execute('SELECT * FROM question WHERE fid = %s', [id])
+    if result > 0:
+        data = cursor.fetchall()
+        for row in data:
+            newdict = {}
+            newdict['type'] = row[1]
+            newdict['question'] = row[2]
+            newdict['qid'] = 'f'+str(row[0])+'q'+str(row[3])
+            formQuestions.append(newdict)
+    return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 
 if __name__ != '__main__':
