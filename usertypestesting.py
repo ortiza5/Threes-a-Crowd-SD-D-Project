@@ -4,6 +4,7 @@ import usertypes
 #We should also add new test cases if we add more functionality to the usertypes.py file.
 
 def Test1CreateUser():
+	#The output of this file should be "Mark", "Justin", "J", "Uszacki", "uszacm@rpi.edu", "7324253901", "Mark J Uszacki, student"
 	user1 = usertypes.Student("Mark", "Justin", "Uszacki", "uszacm@rpi.edu", "7324253901")
 	print(user1.getFirst())
 	print(user1.getMiddle())
@@ -15,6 +16,7 @@ def Test1CreateUser():
 	print(user1)
 	
 def Test2CreateDifferentUserTypes():
+	#The output of this file should be "Student", "Faculty", "Staff", "User"
 	user1 = usertypes.Student("Mark", "Justin", "Uszacki", "uszacm@rpi.edu", "7324253901")
 	user2 = usertypes.Faculty("Ann", "M", "Miller", "millea5@rpi.edu", "5188158888")
 	user3 = usertypes.StaffMember("David", "Xavier", "Davis", "davisd2@rpi.edu", "9088098989")
