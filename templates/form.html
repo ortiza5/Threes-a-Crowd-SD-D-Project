@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="md-form mb-0">
-                  <p>{{question.question}}</p>
+                  <blockquote>{{question.question}}</blockquote>
                 </div>
               </div>
             </div>
@@ -58,15 +58,7 @@
             <!--Grid row-->
 
           {% elif question.type == 'divider' %}
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="md-form mb-0">
                   <hr class="hr-dark">
-                </div>
-              </div>
-            </div>
-            <!--Grid row-->
 
           {% elif question.type == 'text' %}
             <!--Grid row-->
@@ -85,6 +77,17 @@
           {% elif question.type == 'radiobutton' %}
 
           {% elif question.type == 'select' %}
+            {% set count = namespace(a=1) %}
+                <div class="md-form mb-0">
+                  <select class="browser-default custom-select md-form" id={{question.qid}}>
+                    <option value="" disabled="" selected="">{{question.typeparam}}</option>
+                    {% for option in question.question.split(',') %}
+                      <option value={{count.a}}>{{option}}</option>
+                      <!-- incrementing the count variable -->
+                      {% set count.a = count.a + 1 %}
+                    {% endfor %}
+                  </select>
+                </div>
 
           {% elif question.type == 'crnsearch' %}
 
@@ -99,7 +102,7 @@
       </form>
 
       <div class="text-center text-md-left">
-        <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Submit</a>
+        <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Submit</a>
       </div>
       <div class="status"></div>
 
