@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<header>
+  {% include 'includes/_navbar.html'%}
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
+    <div class="flex-center white-text rgba-black-strong">
+      <ul class="my-5 list-unstyled">
+        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">{{formTitle}}</h2>
+        </ul>
+      </div>
+    </div>
+    <div style="background-color: #b71c1c;min-height: 15px;"></div>
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+  <div class="container">
+    <!--Section: Form-->
+    <section class="section">
+
+      <form id="contact-form" name="contact-form" method="POST">
+
+        <!--Grid row-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="md-form mb-0">
+                    <input type="text" id="subject" name="subject" class="form-control">
+                    <label for="subject" class="">Subject</label>
+                </div>
+            </div>
+        </div>
+        <!--Grid row-->
+
+      </form>
+
+      <div class="text-center text-md-left">
+        <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Submit</a>
+      </div>
+      <div class="status"></div>
+
+
+    </section>
+    <!--Section: Form 1-->
+  </div>
+
+</main>
+<!--Main layout-->
+{% endblock %}
