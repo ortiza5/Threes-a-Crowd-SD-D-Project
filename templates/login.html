@@ -2,6 +2,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+{% include 'includes/_messages.html' %}
 <header>
   {% include 'includes/_navbar.html'%}
   <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
