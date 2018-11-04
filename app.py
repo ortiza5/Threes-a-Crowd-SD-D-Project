@@ -32,23 +32,23 @@ def contact():
 def login():
     if request.method == 'POST':
         # Get Form Fields
-        username = request.form['username']
+        email = request.form['email']
         password_candidate = request.form['password']
         # Open database connection
         db = pymysql.connect(HOST,USER,PASSWORD,DBNAME )
         # prepare a cursor object using cursor() method
         cursor = db.cursor()
         # execute SQL query using execute() method.
-        result = cursor.execute('SELECT * FROM user WHERE rcsid = %s', [username])
+        result = cursor.execute('SELECT * FROM user WHERE email = %s', [email])
 
         if result>0:
             # Fetch a single row using fetchone() method.
             data = cursor.fetchone()
-            password = data[2]
+            password = data[1]
             # Compare Passwords
             if sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
-                session['username'] = username
+                session['user'] = email
                 db.close()
                 print('correct')
                 return render_template('correct.html')
@@ -67,6 +67,7 @@ def login():
 
 @app.route('/register')
 def register():
+
 	return render_template('register.html')
 
 @app.route('/forms')
@@ -140,6 +141,6 @@ if __name__ != '__main__':
     app.run(host="0.0.0.0", debug=True)
 
 if __name__ == '__main__':
-    app.config['SESSION_TYPE'] = 'filesystem'
+    # app.config['SESSION_TYPE'] = 'filesystem'
     # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
