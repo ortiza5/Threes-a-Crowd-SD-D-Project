@@ -18,9 +18,33 @@ def index():
 
 @app.route('/home')
 def home():
+    forms = []
     # Get forms that need to be displayed  in table
-    print(user)
-    return render_template('home.html',forms=[], usertype=user)
+    if user.getUserType() == "Staff":
+        # Open database connection
+        db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+        # prepare a cursor object using cursor() method
+        cursor = db.cursor()
+        # execute SQL query using execute() method.
+        result = cursor.execute('SELECT * FROM formfilled')
+        if result > 0:
+            data = cursor.fetchall()
+            # print(data[1][2])
+            allforms = query_forminfo()
+            formnames = {}
+            for form in allforms:
+                formnames[form['fid']] = form['title']
+            newform = ''
+            for row in data:
+                if (str(row[0])+str(row[1])+str(row[2])) != newform:
+                    newdict = {}
+                    newdict['fid'] = row[0]
+                    newdict['title'] = formnames[row[0]]
+                    newdict['username'] = row[1]
+                    newdict['completion'] = 'Completed'
+                    newdict['approval'] = 'Not Approved'
+                    forms.append(newdict)
+    return render_template('home.html',forms=forms, usertype=str(user))
 
 @app.route('/about')
 def about():
