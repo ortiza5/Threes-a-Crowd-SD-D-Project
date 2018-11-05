@@ -16,8 +16,10 @@ def index():
     return render_template('startpage.html')
 
 @app.route('/home')
-def why():
-    return render_template('home.html')
+def home():
+    # Get forms that need to be displayed  in table
+
+    return render_template('home.html',forms=[], usertype="AA")
 
 @app.route('/about')
 def about():
