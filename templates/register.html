@@ -2,61 +2,61 @@
 
 {% block body %}
 <header>
-  {% include 'includes/_navbar.html'%}
-  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
-    <div class="flex-center white-text rgba-black-strong">
-      <ul class="my-4 list-unstyled">
-        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Register</h2>
-        </ul>
-      </div>
-    </div>
-    <div style="background-color: #b71c1c;min-height: 15px;"></div>
+	{% include 'includes/_navbar.html'%}
+	<div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
+		<div class="flex-center white-text rgba-black-strong">
+			<ul class="my-4 list-unstyled">
+				<h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Register</h2>
+			</ul>
+		</div>
+	</div>
+	<div style="background-color: #b71c1c;min-height: 15px;"></div>
 </header>
 <!--Main Navigation-->
 
+
 <!--Main layout-->
 <main>
-  <!-- Default form register -->
-  <form class="text-center border border-light p-5">
+	<div class="container mt-4">
+		<!-- Form -->
+		<form class="text-center" style="color: #B71C1C" action="" method="POST">
 
-      <!-- <p class="h4 mb-4">Sign up</p> -->
+			<!-- First -->
+			<div class="md-form">
+				<input type="text" id="materialRegisterFormFirst" class="form-control" name="first" value={{request.form.first}}>
+				<label for="materialRegisterFormFirst">First Name</label>
+			</div>
 
-      <div class="form-row mb-4">
-          <div class="col">
-              <!-- First name -->
-              <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
-          </div>
-          <div class="col">
-              <!-- Last name -->
-              <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
-          </div>
-      </div>
+			<!-- Second -->
+			<div class="md-form">
+				<input type="text" id="materialRegisterFormSecond" class="form-control" name="second" value={{request.form.second}}>
+				<label for="materialRegisterFormSecond">Second Name</label>
+			</div>
 
-      <!-- RCS email -->
-      <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Rensselaer E-mail Address">
+			<!-- RIN -->
+			<div class="md-form">
+				<input type="text" id="materialRegisterFormRIN" class="form-control" name="rin" value={{request.form.rin}}>
+				<label for="materialRegisterFormRIN">RIN</label>
+			</div>
 
-      <!-- Password -->
-      <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-      <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-          6 or more characters
-      </small>
+			<!-- Email -->
+			<div class="md-form">
+				<input type="email" id="materialRegisterFormEmail" class="form-control" name="email" value={{request.form.email}}>
+				<label for="materialRegisterFormEmail">RPI E-mail Address</label>
+			</div>
 
-      <!-- RIN -->
-      <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="RIN" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+			<!-- Password -->
+			<div class="md-form">
+				<input type="password" id="materialRegisterFormPassword" class="form-control" name="password" value={{request.form.password}}>
+				<label for="materialRegisterFormPassword">Password</label>
+			</div>
 
-      <!-- Sign up button -->
-      <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+			<!-- Sign up button -->
+			<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 btn-outline-grey" type="submit">Sign up</button>
 
-      <hr>
-
-      <!-- Terms of service -->
-      <p>By clicking
-          <em>Sign up</em> you agree to our
-          <a href="" target="_blank">terms of service</a> and
-          <a href="" target="_blank">terms of service</a>. </p>
-
-  </form>
-  <!-- Default form register -->
+		</form>
+	</div>
+	<!-- Default form register -->
 </main>
 <!--Main layout-->
 {% endblock %}

@@ -65,10 +65,46 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-
-	return render_template('register.html')
+    if request.method == 'POST':
+        # Get Form Fields
+        email = request.form['email']
+        password = request.form['password']
+        print(email)
+        # Open database connection
+        db = pymysql.connect(HOST,USER,PASSWORD,DBNAME )
+        # prepare a cursor object using cursor() method
+        cursor = db.cursor()
+        # execute SQL query using execute() method.
+        cursor.execute('SELECT EXISTS(SELECT * FROM user WHERE email=%s)', [email])
+        result = cursor.fetchall()
+        print(result[0][0])
+        if result[0][0]==0:
+            print('===============================')
+            try:
+                newpass = sha256_crypt.hash(password)
+                # Execute the SQL command
+                cursor.execute('INSERT INTO user VALUES (%s, %s, %s)', [email, newpass, 'student'])
+                # Commit your changes in the database
+                db.commit()
+                print('added user')
+                session['logged_in'] = True
+                session['user'] = email
+            except:
+                # Rollback in case there is any error
+                db.rollback()
+                error = 'Invalid register'
+                return render_template('register.html', error=error)
+            db.close()
+            print('registered')
+            return render_template('correct.html')
+        else:
+            db.close()
+            print('Email address is already registered')
+            error = 'Invalid register'
+            return render_template('register.html', error=error)
+    return render_template('register.html')
 
 @app.route('/forms')
 def forms():
