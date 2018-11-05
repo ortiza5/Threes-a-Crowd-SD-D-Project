@@ -61,7 +61,7 @@ class Faculty(User):
 	def __init__(self, first, middle, last, email, phone):
 		super().__init__(first, middle, last, email, phone)
 
-	def __str__():
+	def __str__(self):
 		return super().__str__() + ", faculty member"
 
 	def getUserType(self):
@@ -73,7 +73,7 @@ class StaffMember(User):
 	def __init__(self, first, middle, last, email, phone):
 		super().__init__(first, middle, last, email, phone)
 
-	def __str__():
+	def __str__(self):
 		return super().__str__() + ", staff member"
 
 	def getUserType(self):

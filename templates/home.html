@@ -47,25 +47,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Authorization Form</td>
-                  <td>Otto, Adi</td>
-                  <td>Complete</td>
-                  <td>Aproved</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {% set count = namespace(a=1) %}
+                {% for form in forms %}
+                  <tr>
+                    <th scope="row">{{count.a}}</th>
+                    <td>{{form.title}}</td>
+                    <td>{{form.username}}</td>
+                    <td>{{form.completion}}</td>
+                    <td>{{form.approval}}</td>
+                  </tr>
+                  {% set count.a = count.a + 1 %}
+                {% endfor %}
               </tbody>
             </table>
           </div>
