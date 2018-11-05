@@ -61,12 +61,15 @@
                   <hr class="hr-dark">
 
           {% elif question.type == 'text' %}
+          {% set temp = question.qid %}
             <!--Grid row-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="md-form mb-0">
-                        <input type="text" id={{question.qid}} name={{question.qid}} class="form-control">
-                        <label for={{question.qid}} class="">{{question.question}}</label>
+                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{request.form.temp}}>
+
+
+                        <label for={{question.fqid}} class="">{{question.question}}</label>
                     </div>
                 </div>
             </div>
@@ -79,7 +82,7 @@
           {% elif question.type == 'select' %}
             {% set count = namespace(a=1) %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.qid}}>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}}>
                     <option value="" disabled="" selected="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
                       <option value={{count.a}}>{{option}}</option>

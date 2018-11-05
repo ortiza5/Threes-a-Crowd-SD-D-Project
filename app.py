@@ -102,7 +102,6 @@ def register():
         result = cursor.fetchall()
         print(result[0][0])
         if result[0][0]==0:
-            print('===============================')
             try:
                 newpass = sha256_crypt.hash(password)
                 # Execute the SQL command
@@ -187,9 +186,20 @@ def formfill(id,title):
             newdict = {}
             newdict['type'] = row[1]
             newdict['question'] = row[2]
-            newdict['qid'] = 'f'+str(row[0])+'q'+str(row[3])
+            newdict['fqid'] = str(row[0])+'-'+str(row[3])
             newdict['typeparam'] = row[4]
             formQuestions.append(newdict)
+    '''get user input'''
+    if request.method == 'POST':
+        # Get Form Fields
+        for row in data:
+            fqid = str(row[0])+'-'+str(row[3])
+            input = request.form[fqid]
+            print('-----------input:', input)
+
+        
+
+
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 
