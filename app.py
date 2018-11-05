@@ -37,6 +37,7 @@ def home():
             newform = ''
             for row in data:
                 if (str(row[0])+str(row[1])+str(row[2])) != newform:
+                    newform = (str(row[0])+str(row[1])+str(row[2]))
                     newdict = {}
                     newdict['fid'] = row[0]
                     newdict['title'] = formnames[row[0]]
@@ -44,6 +45,7 @@ def home():
                     newdict['completion'] = 'Completed'
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
+                    
     return render_template('home.html',forms=forms, usertype=str(user))
 
 @app.route('/about')
