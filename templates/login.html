@@ -2,7 +2,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-{% include 'includes/_messages.html' %}
+
 <header>
   {% include 'includes/_navbar.html'%}
   <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
@@ -14,7 +14,7 @@
     </div>
     <div style="background-color: #b71c1c;min-height: 15px;"></div>
 </header>
-
+{% include 'includes/_messages.html' %}
 
 <!-- Material form login -->
 <div class="container mt-4">
