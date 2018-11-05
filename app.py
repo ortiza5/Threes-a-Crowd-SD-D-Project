@@ -4,11 +4,12 @@ import pymysql, random
 from passlib.hash import sha256_crypt
 from config import *
 from helper import *
-from tempdata import FormLinks
+import usertypes
 
 
 app = Flask(__name__)
 app.secret_key=SECRET
+user = None
 
 # Index
 @app.route('/')
@@ -18,8 +19,8 @@ def index():
 @app.route('/home')
 def home():
     # Get forms that need to be displayed  in table
-
-    return render_template('home.html',forms=[], usertype="AA")
+    print(user)
+    return render_template('home.html',forms=[], usertype=user)
 
 @app.route('/about')
 def about():
@@ -52,8 +53,20 @@ def login():
                 session['logged_in'] = True
                 session['user'] = email
                 db.close()
-                print('correct')
-                return render_template('correct.html')
+                global user
+                print('%s',data[3])
+                if data[2] == "Student":
+                    user = usertypes.Student(data[3], data[4], data[5], data[0], data[6])
+                elif data[2] == "Faculty":
+                    user = usertypes.Faculty(data[3], data[4], data[5], data[0], data[6])
+                elif data[2] == "Staff":
+                    user = usertypes.StaffMember(data[3], data[4], data[5], data[0], data[6])
+                else:
+                    error = 'Not a valid user type. Register again'
+                    return render_template('login.html', error=error)
+
+                msg = 'Success, go to the home page to continue'
+                return render_template('login.html', msg=msg)
             else:
                 db.close()
                 print('wrong pass')
@@ -73,6 +86,12 @@ def register():
         # Get Form Fields
         email = request.form['email']
         password = request.form['password']
+        utype = request.form['utype']
+        first = request.form['first']
+        middle = request.form['middle']
+        last = request.form['last']
+        rin = request.form['rin']
+
         print(email)
         # Open database connection
         db = pymysql.connect(HOST,USER,PASSWORD,DBNAME )
@@ -87,7 +106,7 @@ def register():
             try:
                 newpass = sha256_crypt.hash(password)
                 # Execute the SQL command
-                cursor.execute('INSERT INTO user VALUES (%s, %s, %s)', [email, newpass, 'student'])
+                cursor.execute('INSERT INTO user VALUES (%s, %s, %s, %s, %s, %s, %s)', [email, newpass, utype, first, middle, last, rin])
                 # Commit your changes in the database
                 db.commit()
                 print('added user')
@@ -100,7 +119,8 @@ def register():
                 return render_template('register.html', error=error)
             db.close()
             print('registered')
-            return render_template('correct.html')
+            msg = 'Registration Success'
+            return render_template('register.html', msg=msg)
         else:
             db.close()
             print('Email address is already registered')

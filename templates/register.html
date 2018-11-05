@@ -13,7 +13,7 @@
 	<div style="background-color: #b71c1c;min-height: 15px;"></div>
 </header>
 <!--Main Navigation-->
-
+{% include 'includes/_messages.html' %}
 
 <!--Main layout-->
 <main>
@@ -27,16 +27,28 @@
 				<label for="materialRegisterFormFirst">First Name</label>
 			</div>
 
-			<!-- Second -->
+			<!-- Middle -->
 			<div class="md-form">
-				<input type="text" id="materialRegisterFormSecond" class="form-control" name="second" value={{request.form.second}}>
-				<label for="materialRegisterFormSecond">Second Name</label>
+				<input type="text" id="materialRegisterFormMiddle" class="form-control" name="middle" value={{request.form.middle}}>
+				<label for="materialRegisterFormSecond">Middle Name</label>
+			</div>
+
+			<!-- Last -->
+			<div class="md-form">
+				<input type="text" id="materialRegisterFormLast" class="form-control" name="last" value={{request.form.last}}>
+				<label for="materialRegisterFormSecond">Last Name</label>
 			</div>
 
 			<!-- RIN -->
 			<div class="md-form">
 				<input type="text" id="materialRegisterFormRIN" class="form-control" name="rin" value={{request.form.rin}}>
 				<label for="materialRegisterFormRIN">RIN</label>
+			</div>
+
+			<!-- Type of User -->
+			<div class="md-form">
+				<input type="text" id="materialRegisterFormUType" class="form-control" name="utype" value={{request.form.utype}}>
+				<label for="materialRegisterFormUType">Enter the type of user</label>
 			</div>
 
 			<!-- Email -->
