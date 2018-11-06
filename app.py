@@ -29,7 +29,6 @@ def home():
         result = cursor.execute('SELECT * FROM formfilled')
         if result > 0:
             data = cursor.fetchall()
-            # print(data[1][2])
             allforms = query_forminfo()
             formnames = {}
             # Get all the form names based off the fid
@@ -48,7 +47,6 @@ def home():
                     newdict['completion'] = 'Completed'
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
-                    
 
     return render_template('home.html',forms=forms, usertype=str(user))
 
