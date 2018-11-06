@@ -32,9 +32,12 @@ def home():
             # print(data[1][2])
             allforms = query_forminfo()
             formnames = {}
+            # Get all the form names based off the fid
             for form in allforms:
                 formnames[form['fid']] = form['title']
             newform = ''
+
+            # Generate the table information for staff members
             for row in data:
                 if (str(row[0])+str(row[1])+str(row[2])) != newform:
                     newform = (str(row[0])+str(row[1])+str(row[2]))
@@ -46,6 +49,7 @@ def home():
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
                     
+
     return render_template('home.html',forms=forms, usertype=str(user))
 
 @app.route('/about')
@@ -79,6 +83,8 @@ def login():
                 session['logged_in'] = True
                 session['user'] = email
                 db.close()
+
+                #  create the user object for the session
                 global user
                 print('%s',data[3])
                 if data[2] == "Student":
@@ -91,6 +97,7 @@ def login():
                     error = 'Not a valid user type. Register again'
                     return render_template('login.html', error=error)
 
+                # successful login
                 msg = 'Success, go to the home page to continue'
                 return render_template('home.html', msg=msg)
             else:
@@ -219,11 +226,16 @@ def formfill(id,title):
         for row in data:
             fqid = str(row[0])+'-'+str(row[3])
             input = request.form[fqid]
+
             result = cursor.execute('INSERT INTO formfilled(fid, \
                                    username, version, qid, answer) \
                                    VALUES (%d, %s, %d, %d, %s)', \
                                    (int(row[0]), str(user), 0, int(row[3]), input))
             
+
+            print('-----------input:', input)
+
+
 
 
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
