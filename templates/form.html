@@ -67,8 +67,6 @@
                 <div class="col-md-12">
                     <div class="md-form mb-0">
                         <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{request.form.temp}}>
-
-
                         <label for={{question.fqid}} class="">{{question.question}}</label>
                     </div>
                 </div>
@@ -82,10 +80,10 @@
           {% elif question.type == 'select' %}
             {% set count = namespace(a=1) %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.fqid}}>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}} name='select'>
                     <option value="" disabled="" selected="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
-                      <option value={{count.a}}>{{option}}</option>
+                      <option value={{option}}>{{option}}</option>
                       <!-- incrementing the count variable -->
                       {% set count.a = count.a + 1 %}
                     {% endfor %}

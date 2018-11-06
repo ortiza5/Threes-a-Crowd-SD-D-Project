@@ -92,7 +92,7 @@ def login():
                     return render_template('login.html', error=error)
 
                 msg = 'Success, go to the home page to continue'
-                return render_template('login.html', msg=msg)
+                return render_template('home.html', msg=msg)
             else:
                 db.close()
                 print('wrong pass')
@@ -168,8 +168,6 @@ def forms():
 
     # forms = FormLinks()
 
-
-
     for form in forms:
         categories.add(form['category'])
         thumbNumber = random.choice(choices)
@@ -221,20 +219,22 @@ def formfill(id,title):
         for row in data:
             fqid = str(row[0])+'-'+str(row[3])
             input = request.form[fqid]
-            print('-----------input:', input)
-
-        
+            result = cursor.execute('INSERT INTO formfilled(fid, \
+                                   username, version, qid, answer) \
+                                   VALUES (%d, %s, %d, %d, %s)', \
+                                   (int(row[0]), str(user), 0, int(row[3]), input))
+            
 
 
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 
-if __name__ != '__main__':
-    app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
-    app.run(host="0.0.0.0", debug=True)
+# if __name__ != '__main__':
+#     app.config['SESSION_TYPE'] = 'filesystem'
+#     sess.init_app(app)
+#     app.run(host="0.0.0.0", debug=True)
 
 if __name__ == '__main__':
-    # app.config['SESSION_TYPE'] = 'filesystem'
-    # sess.init_app(app)
+    app.config['SESSION_TYPE'] = 'filesystem'
+    sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
