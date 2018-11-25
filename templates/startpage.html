@@ -10,10 +10,17 @@
       <ul class="my-5 list-unstyled">
         <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Welcome to FastForms</h2>
         <hr class="hr-light">
-        <h4 class="white-text my-4" style="font-size:3.3vh;">Sign in to start filling out forms.</h4>
-        <a href="/login">
-          <button type="button" class="btn btn-outline-white" >Sign In<i class="fa fa-check ml-2"></i></button>
-        </a>
+        {% if not session.logged_in %}
+          <h4 class="white-text my-4" style="font-size:3.3vh;">Sign in to start filling out forms.</h4>
+          <a href="/login">
+            <button type="button" class="btn btn-outline-white" >Sign In<i class="fa fa-check ml-2"></i></button>
+          </a>
+          <a href="/register">
+            <button type="button" class="btn btn-outline-white" >Register<i class="fa fa-edit ml-2"></i></button>
+          </a>
+        {% else %}
+          <h4 class="white-text my-4" style="font-size:3.3vh;">Check out the Forms tab to get started.</h4>
+        {% endif %}
         </ul>
       </div>
     </div>
