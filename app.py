@@ -1,26 +1,38 @@
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
-import pymysql, random
+import pymysql, random, jsonpickle
 from passlib.hash import sha256_crypt
 from config import *
 from helper import *
+from functools import wraps
 import usertypes
 
 
 app = Flask(__name__)
 app.secret_key=SECRET
-user = None
 
 # Index
 @app.route('/')
 def index():
     return render_template('startpage.html')
 
+# Check if user logged in
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+    return wrap
+
 @app.route('/home')
+@is_logged_in
 def home():
     forms = []
     # Get forms that need to be displayed  in table
-    if user.getUserType() == "Staff":
+    if jsonpickle.decode(session['userOBJ']).getUserType() == "Staff":
         # Open database connection
         db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
         # prepare a cursor object using cursor() method
@@ -48,7 +60,7 @@ def home():
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
 
-    return render_template('home.html',forms=forms, usertype=str(user))
+    return render_template('home.html',forms=forms, usertype=str(jsonpickle.decode(session['userOBJ'])))
 
 @app.route('/about')
 def about():
@@ -83,7 +95,6 @@ def login():
                 db.close()
 
                 #  create the user object for the session
-                global user
                 print('%s',data[3])
                 if data[2] == "Student":
                     user = usertypes.Student(data[3], data[4], data[5], data[0], data[6])
@@ -94,10 +105,9 @@ def login():
                 else:
                     error = 'Not a valid user type. Register again'
                     return render_template('login.html', error=error)
-
+                session['userOBJ'] = jsonpickle.encode(user)
                 # successful login
-                msg = 'Success, go to the home page to continue'
-                return render_template('home.html', msg=msg)
+                return redirect(url_for('home'))
             else:
                 db.close()
                 print('wrong pass')
@@ -110,6 +120,13 @@ def login():
             return render_template('login.html', error=error)
 
     return render_template('login.html')
+
+# Logout
+@app.route('/logout')
+@is_logged_in
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -140,8 +157,9 @@ def register():
                 # Commit your changes in the database
                 db.commit()
                 print('added user')
-                session['logged_in'] = True
-                session['user'] = email
+                # ALEX: I think we shouldn't log them in when they register
+                # session['logged_in'] = True
+                # session['user'] = email
             except:
                 # Rollback in case there is any error
                 db.rollback()
@@ -150,13 +168,16 @@ def register():
             db.close()
             print('registered')
             msg = 'Registration Success'
-            return render_template('register.html', msg=msg)
+            flash('You are now registered and can log in', 'success')
+            # return render_template('register.html', msg=msg)
+            return redirect(url_for('login'))
         else:
             db.close()
             print('Email address is already registered')
             error = 'Invalid register'
             return render_template('register.html', error=error)
     return render_template('register.html')
+
 
 @app.route('/forms')
 def forms():
@@ -228,8 +249,8 @@ def formfill(id,title):
             result = cursor.execute('INSERT INTO formfilled(fid, \
                                    username, version, qid, answer) \
                                    VALUES (%d, %s, %d, %d, %s)', \
-                                   (int(row[0]), str(user), 0, int(row[3]), input))
-            
+                                   (int(row[0]), str(jsonpickle.decode(session['userOBJ'])), 0, int(row[3]), input))
+
 
             print('-----------input:', input)
 
