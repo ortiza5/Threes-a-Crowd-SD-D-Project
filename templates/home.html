@@ -42,8 +42,8 @@
                   <th scope="col">#</th>
                   <th scope="col">Form</th>
                   <th scope="col">Owner</th>
-                  <th scope="col">Completion Status</th>
                   <th scope="col">Approval Status</th>
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,8 +53,8 @@
                     <th scope="row">{{count.a}}</th>
                     <td>{{form.title}}</td>
                     <td>{{form.username}}</td>
-                    <td>{{form.completion}}</td>
                     <td>{{form.approval}}</td>
+                    <td></td>
                   </tr>
                   {% set count.a = count.a + 1 %}
                 {% endfor %}
