@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
 import pymysql, random
-# import jsonpickle
+import jsonpickle
 from passlib.hash import sha256_crypt
 from config import *
 from helper import *
