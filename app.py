@@ -1,12 +1,12 @@
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
-import pymysql, random, jsonpickle
+import pymysql, random
+import jsonpickle
 from passlib.hash import sha256_crypt
 from config import *
 from helper import *
 from functools import wraps
 import usertypes
-
 
 app = Flask(__name__)
 app.secret_key=SECRET
