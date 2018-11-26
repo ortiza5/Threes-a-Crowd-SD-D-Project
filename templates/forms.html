@@ -79,7 +79,9 @@
                       <div class="card-body pb-0">
                         <h4 class="font-weight-bold my-3">{{form.title}}</h4>
                         <p class="grey-text">{{form.description}}</p>
-                        <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                        {% if session.logged_in %}
+                          <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                        {% endif %}
                         <a class="btn btn-indigo btn-sm" href={{form.pdflink}}><i class="fa fa-clone left"></i>View PDF Version</a>
                       </div>
                     </div>
@@ -100,7 +102,9 @@
                       <div class="card-body pb-0">
                         <h4 class="font-weight-bold my-3">{{form.title}}</h4>
                         <p class="grey-text">{{form.description}}</p>
-                        <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                        {% if session.logged_in %}
+                          <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                        {% endif %}
                         <a class="btn btn-indigo btn-sm" href={{form.pdflink}}><i class="fa fa-clone left"></i>View PDF Version</a>
                       </div>
                     </div>
@@ -120,7 +124,9 @@
                         <div class="card-body pb-0">
                           <h4 class="font-weight-bold my-3">{{form.title}}</h4>
                           <p class="grey-text">{{form.description}}</p>
-                          <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                          {% if session.logged_in %}
+                            <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+                          {% endif %}
                           <a class="btn btn-indigo btn-sm" href={{form.pdflink}}><i class="fa fa-clone left"></i>View PDF Version</a>
                         </div>
                       </div>
