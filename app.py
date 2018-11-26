@@ -260,12 +260,12 @@ def formfill(id,title):
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 
-if __name__ != '__main__':
-    app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
-    app.run(host="0.0.0.0", debug=True)
+# if __name__ != '__main__':
+#     app.config['SESSION_TYPE'] = 'filesystem'
+#     sess.init_app(app)
+#     app.run(host="0.0.0.0", debug=True)
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    # sess.init_app(app)
+    sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
