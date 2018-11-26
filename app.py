@@ -1,12 +1,12 @@
 from flask import Flask, render_template, flash, redirect, \
                     url_for, session, request, logging
-import pymysql, random, jsonpickle
+import pymysql, random
+# import jsonpickle
 from passlib.hash import sha256_crypt
 from config import *
 from helper import *
 from functools import wraps
 import usertypes
-
 
 app = Flask(__name__)
 app.secret_key=SECRET
@@ -260,12 +260,12 @@ def formfill(id,title):
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 
-# if __name__ != '__main__':
-#     app.config['SESSION_TYPE'] = 'filesystem'
-#     sess.init_app(app)
-#     app.run(host="0.0.0.0", debug=True)
+if __name__ != '__main__':
+    app.config['SESSION_TYPE'] = 'filesystem'
+    sess.init_app(app)
+    app.run(host="0.0.0.0", debug=True)
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
