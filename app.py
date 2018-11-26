@@ -56,7 +56,6 @@ def home():
                     newdict['fid'] = row[0]
                     newdict['title'] = formnames[row[0]]
                     newdict['username'] = row[1]
-                    newdict['completion'] = 'Completed'
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
 
