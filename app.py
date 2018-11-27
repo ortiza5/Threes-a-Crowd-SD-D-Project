@@ -246,9 +246,9 @@ def formfill(id,title):
             input = request.form[fqid]
 
             result = cursor.execute('INSERT INTO formfilled(fid, \
-                                   username, version, qid, answer) \
-                                   VALUES (%d, %s, %d, %d, %s)', \
-                                   (int(row[0]), str(jsonpickle.decode(session['userOBJ'])), 0, int(row[3]), input))
+                                   username, qid, answer) \
+                                   VALUES (%d, %d, %d, %s)', \
+                                   (int(row[0]), str(jsonpickle.decode(session['userOBJ'])), int(row[3]), input))
 
 
             print('-----------input:', input)
@@ -260,7 +260,17 @@ def formfill(id,title):
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
-    return render_template('search.html', searchterm=searchterm, forms='a')
+    # Get Forms that match search term
+    forms = []
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # execute SQL query using execute() method.
+    # result = cursor.execute('SELECT * FROM )
+
+
+    return render_template('search.html', searchterm=searchterm, forms=forms)
 
 
 # if __name__ != '__main__':
