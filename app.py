@@ -247,7 +247,7 @@ def formfill(id,title):
 
             result = cursor.execute('INSERT INTO formfilled(fid, \
                                    username, qid, answer) \
-                                   VALUES (%d, %d, %d, %s)', \
+                                   VALUES (%d, %s, %d, %s)', \
                                    (int(row[0]), str(jsonpickle.decode(session['userOBJ'])), int(row[3]), input))
 
 
