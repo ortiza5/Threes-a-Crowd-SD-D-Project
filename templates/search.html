@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<header>
+  {% include 'includes/_navbar.html'%}
+  <div class="streak streak-md streak-photo" style="background-image:url({{url_for('static', filename='img/navbar_background.jpg')}}); background-size:cover;">
+    <div class="flex-center white-text rgba-black-strong">
+      <ul class="my-4 list-unstyled">
+        <h2 class="display-4 font-weight-bold white-text pt-5 mb-2" style="font-size:7vh;">Search Results</h2>
+        <hr class="hr-light">
+        <h4 class="white-text my-4" style="font-size:3.3vh;">Here is what we found.</h4>
+      </ul>
+    </div>
+  </div>
+  <div style="background-color: #b71c1c;min-height: 15px;"></div>
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main>
+  <div class="container">
+    <h2 class="h1-responsive font-weight-bold my-5 text-center">Results for "{{searchterm}}"</h2>
+    <!-- Divider -->
+    <hr class="hr-dark">
+    <table class="table table-striped">
+      <thead class="red darken-4 white-text">
+        <tr>
+          <th scope="col">Form Name</th>
+          <th scope="col">Form Category</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in forms %}
+          <tr>
+            <th scope="row">{{form.title}}</th>
+            <td>{{form.category}}</td>
+            <td>
+              {% if session.logged_in %}
+                <a class="btn btn-indigo btn-sm" href="/form/{{form.fid}}/{{form.title}}"><i class="fa fa-clone left"></i>Start Filling Out Form</a>
+              {% endif %}
+              <a class="btn btn-indigo btn-sm" href={{form.pdflink}}><i class="fa fa-clone left"></i>View PDF Version</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+<!--Main layout-->
+{% endblock %}
