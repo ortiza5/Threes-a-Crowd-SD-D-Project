@@ -244,17 +244,14 @@ def formfill(id,title):
         for row in data:
             fqid = str(row[0])+'-'+str(row[3])
             input = request.form[fqid]
-
-            result = cursor.execute('INSERT INTO formfilled(fid, \
-                                   username, qid, answer) \
-                                   VALUES (%d, %s, %d, %s)', \
-                                   (int(row[0]), str(jsonpickle.decode(session['userOBJ'])), int(row[3]), input))
-
+            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [int(row[0]), str(session['user']), int(row[3]), input])              
+            db.commit()
 
             print('-----------input:', input)
+            return redirect(url_for('home'))
 
 
-
+    db.close()
 
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
@@ -280,5 +277,5 @@ def search(searchterm):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
