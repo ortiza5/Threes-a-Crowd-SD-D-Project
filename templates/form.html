@@ -80,7 +80,7 @@
           {% elif question.type == 'select' %}
             {% set count = namespace(a=1) %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.fqid}} name='select'>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}}>
                     <option value="" disabled="" selected="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
                       <option value={{option}}>{{option}}</option>
