@@ -1,6 +1,6 @@
 from flask import Flask, render_template, flash, redirect, \
-                    url_for, session, request, logging, Message
-from app import mail
+                    url_for, session, request, logging
+from flask_mail import Mail, Message
 import pymysql, random
 import jsonpickle
 from passlib.hash import sha256_crypt
@@ -11,6 +11,7 @@ import usertypes
 
 app = Flask(__name__)
 app.secret_key=SECRET
+mail = Mail(app)
 
 # Index
 @app.route('/')
@@ -249,8 +250,8 @@ def formfill(id,title):
             ids = key.split('-')
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
-        # htmlbody = '<h1>HTML body</h1>'
-        # send_email('test send', app.config['ADMINS'][0],'jingsting@gmail.com', 'hello this is a test', htmlbody)
+        htmlbody = '<h1>HTML body</h1>'
+        send_email('test send', MAIL_USERNAME,'jingsting@gmail.com', 'hello this is a test', htmlbody)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -290,6 +291,19 @@ def delete_filledform(fid):
     flash('Form Deleted', 'success')
 
     return redirect(url_for('home'))
+
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+
+def send_email(subject, sender, recipients, text_body, html_body):
+    msg = Message(subject, sender=sender, recipients=recipients)
+    msg.body = text_body
+    msg.html = html_body
+    Thread(target=send_async_email, args=(app, msg)).start()
+
 
 # if __name__ != '__main__':
 #     app.config['SESSION_TYPE'] = 'filesystem'
