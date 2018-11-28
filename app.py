@@ -13,8 +13,14 @@ from threading import Thread
 
 app = Flask(__name__)
 app.secret_key=SECRET
-mail = Mail(app)
 
+app.config['MAIL_SERVER']=MAIL_SERVER
+app.config['MAIL_PORT'] = MAIL_PORT
+app.config['MAIL_USERNAME'] = MAIL_USERNAME
+app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
+app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
+app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
+mail = Mail(app)
 
 ''' Startpage '''
 @app.route('/')
@@ -264,7 +270,9 @@ def formfill(id,title):
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
         htmlbody = '<h1>HTML body</h1>'
-        send_email('test send', MAIL_USERNAME,'jingsting@gmail.com', 'hello this is a test', htmlbody)
+        msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
+        msg.body = "Hello this is a test !"
+        mail.send(msg)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -281,7 +289,6 @@ def search(searchterm):
     # execute SQL query using execute() method.
     # result = cursor.execute('SELECT * FROM )
     return render_template('search.html', searchterm=searchterm, forms=forms)
-
 
 
 # Delete filled forms when Delete button is clicked 
@@ -351,16 +358,17 @@ def edit_filledform(fid,title):
     return render_template('editform.html', formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
 
 
-def send_async_email(app, msg):
-    with app.app_context():
-        mail.send(msg)
+# def send_async_email(app, msg):
+#     with app.app_context():
+#         mail.send(msg)
 
 
-def send_email(subject, sender, recipients, text_body, html_body):
-    msg = Message(subject, sender, recipients)
-    msg.body = text_body
-    msg.html = html_body
-    Thread(target=send_async_email, args=(app, msg)).start()
+# def send_email(subject, sender, recipients, text_body, html_body):
+#     msg = Message(subject, sender, recipients)
+#     msg.body = text_body
+#     msg.html = html_body
+#     mail.send(msg)
+#     # Thread(target=send_async_email, args=(app, msg)).start()
 
 
 if __name__ == '__main__':
