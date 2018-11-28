@@ -55,8 +55,10 @@
                     <td>{{form.username}}</td>
                     <td>{{form.approval}}</td>
                     <td>
-                      <div class="btn-group btn-group-sm center" role="group">
-                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                      <div class="btn-group btn-group-sm " role="group">
+                        <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
+                          <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                        </a>
                         <button type="button" class="btn btn-red btn-sm">Delete</button>
                       </div>
                         <!-- <a href="edit_filledform/{{form.fid}}" class="btn btn-default">Edit</a>

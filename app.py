@@ -293,6 +293,51 @@ def delete_filledform(fid):
     return redirect(url_for('home'))
 
 
+
+@app.route('/edit_filledform/<int:fid>/<string:title>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_filledform(fid,title):
+    formQuestions = []
+    oldFormInputs = {}
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # execute SQL query using execute() method.
+    result = cursor.execute('SELECT * FROM question WHERE fid = %s', [fid])
+    if result > 0:
+        data = cursor.fetchall()
+        for row in data:
+            newdict = {}
+            newdict['type'] = row[1]
+            newdict['question'] = row[2]
+            newdict['fqid'] = str(row[0])+'-'+str(row[3])
+            newdict['typeparam'] = row[4]
+            formQuestions.append(newdict)
+
+    # Get the old answers from the database
+    result = cursor.execute('SELECT * FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+    if result > 0:
+        data = cursor.fetchall()
+        for row in data:
+            oldFormInputs[str(row[0])+'-'+str(row[2])] = row[3]
+
+    '''get user input'''
+    if request.method == 'POST':
+        input = request.form
+        print('look----',input)
+        # Get Form Fields
+        for key in input:
+            print(key, input[key])
+            ids = key.split('-')
+            cursor.execute('UPDATE formfilled SET answer=%s WHERE fid=%s AND username=%s AND qid=%s',[input[key], ids[0], str(session['user']), ids[1]])
+        db.commit()
+        return redirect(url_for('home'))
+    db.close()
+    return render_template('editform.html', formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
+
+
+
 def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
@@ -304,7 +349,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg.html = html_body
     Thread(target=send_async_email, args=(app, msg)).start()
 
-
+    
 # if __name__ != '__main__':
 #     app.config['SESSION_TYPE'] = 'filesystem'
 #     sess.init_app(app)

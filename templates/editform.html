@@ -20,7 +20,7 @@
   <div class="container">
     <!--Section: Form-->
     <section class="section">
-
+      <h2 class="h1-responsive font-weight-bold my-5">Edit your responses</h2>
       <form id="contact-form" name="contact-form" method="POST">
         <!--Go through all questions and render them-->
         {% for question in formQuestions %}
@@ -61,40 +61,34 @@
                   <hr class="hr-dark">
 
           {% elif question.type == 'text' %}
-              {% if question.question in ['First Name','Last Name','MI','Middle Name','Email','Rensselaer ID Number']%}
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{user.getParameter(question.question)}}>
-                            <label for={{question.fqid}} class="">{{question.question}}</label>
-                        </div>
+            {% set temp = question.fqid %}
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-form mb-0">
+                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers.temp}}>
+                        <label for={{question.fqid}} class="">{{question.question}}</label>
                     </div>
                 </div>
-              {% else %}
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value=''>
-                            <label for={{question.fqid}} class="">{{question.question}}</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-              {% endif %}
+            </div>
+            <!--Grid row-->
+
 
           {% elif question.type == 'checkbox' %}
 
           {% elif question.type == 'radiobutton' %}
 
           {% elif question.type == 'select' %}
+            {% set temp = question.fqid %}
                 <div class="md-form mb-0">
                   <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}}>
-                    <option value="" disabled="" selected="">{{question.typeparam}}</option>
+                    <option value="" disabled="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
-                      <option value={{option}}>{{option}}</option>
-                      <!-- incrementing the count variable -->
+                      {% if option == answers.temp %}
+                        <option value={{option}} selected="">{{option}}</option>
+                      {% else %}
+                        <option value={{option}}>{{option}}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -112,7 +106,7 @@
       </form>
 
       <div class="text-center text-md-left">
-        <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Submit</a>
+        <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Save</a>
       </div>
       <div class="status"></div>
 
