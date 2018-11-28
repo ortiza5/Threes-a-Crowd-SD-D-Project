@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, redirect, \
-                    url_for, session, request, logging
+                    url_for, session, request, logging, Message
+from app import mail
 import pymysql, random
 import jsonpickle
 from passlib.hash import sha256_crypt
@@ -248,6 +249,8 @@ def formfill(id,title):
             ids = key.split('-')
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
+        # htmlbody = '<h1>HTML body</h1>'
+        # send_email('test send', app.config['ADMINS'][0],'jingsting@gmail.com', 'hello this is a test', htmlbody)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -276,8 +279,8 @@ def delete_filledform(fid):
     cursor = db.cursor()
 
     # Execute the SQL command
-    cursor.execute('DELTE FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
-    cursor.execute('DELTE FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+    cursor.execute('DELETE  FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
+    cursor.execute('DELETE  FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
 
     # Commit your changes in the database
     db.commit()
