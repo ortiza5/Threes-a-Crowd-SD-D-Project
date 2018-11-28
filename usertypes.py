@@ -8,12 +8,12 @@
 class User:
 
 	#Initializer
-	def __init__(self, first, middle, last, email, phone):
+	def __init__(self, first, middle, last, email, idnumber):
 		self.first = first
 		self.middle = middle
 		self.last = last
 		self.email = email
-		self.phone = phone
+		self.idnumber = idnumber
 
 	#Accessor functions
 	def getFirst(self):
@@ -34,11 +34,28 @@ class User:
 	def getEmail(self):
 		return self.email
 
-	def getPhone(self):
-		return self.phone
+	def getIdNumber(self):
+		return self.idnumber
 
 	def getUserType(self):
 		return "User"
+
+	def getParameter(self, param):
+		if(param == 'First Name'):
+			getFirst(self)
+		elif(param == 'Last Name'):
+			getLast(self)
+		elif(param == 'Middle Name'):
+			getMiddle(self)
+		elif(param == 'MI'):
+			getMiddleInitial(self)
+		elif(param == 'Email'):
+			getEmail(self)
+		elif(param in ['Rensselaer ID Number','RIN','ID Number']):
+			getIdNumber(self)
+		else:
+			print('AutoFill Error on: ',param)
+			return ''
 
 	#toString function
 	def __str__(self):
@@ -46,8 +63,8 @@ class User:
 
 #This would be a Student
 class Student(User):
-	def __init__(self, first, middle, last, email, phone):
-		super().__init__(first, middle, last, email, phone)
+	def __init__(self, first, middle, last, email, idnumber):
+		super().__init__(first, middle, last, email, idnumber)
 
 	def __str__(self):
 		return super().__str__() + ", student"
@@ -55,11 +72,28 @@ class Student(User):
 	def getUserType(self):
 		return "Student"
 
+	def getParameter(self, param):
+		if(param == 'First Name'):
+			getFirst(self)
+		elif(param == 'Last Name'):
+			getLast(self)
+		elif(param == 'Middle Name'):
+			getMiddle(self)
+		elif(param == 'MI'):
+			getMiddleInitial(self)
+		elif(param == 'Email'):
+			getEmail(self)
+		elif(param in ['Rensselaer ID Number','RIN','Student ID Number','ID Number']):
+			getIdNumber(self)
+		else:
+			print('AutoFill Error on: ',param)
+			return ''
+
 
 #This would be a member of the faculty (i.e. a Professor)
 class Faculty(User):
-	def __init__(self, first, middle, last, email, phone):
-		super().__init__(first, middle, last, email, phone)
+	def __init__(self, first, middle, last, email, idnumber):
+		super().__init__(first, middle, last, email, idnumber)
 
 	def __str__(self):
 		return super().__str__() + ", faculty member"
@@ -70,8 +104,8 @@ class Faculty(User):
 
 #This would be a member of the school staff (i.e. a Registrar's office staff member)
 class StaffMember(User):
-	def __init__(self, first, middle, last, email, phone):
-		super().__init__(first, middle, last, email, phone)
+	def __init__(self, first, middle, last, email, idnumber):
+		super().__init__(first, middle, last, email, idnumber)
 
 	def __str__(self):
 		return super().__str__() + ", staff member"
