@@ -61,17 +61,28 @@
                   <hr class="hr-dark">
 
           {% elif question.type == 'text' %}
-          {% set temp = question.qid %}
-            <!--Grid row-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="md-form mb-0">
-                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{request.form.temp}}>
-                        <label for={{question.fqid}} class="">{{question.question}}</label>
+              {% if question.question in ['First Name','Last Name','MI','Middle Name','Email','Rensselaer ID Number']%}
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{user.getParameter(question.question)}}>
+                            <label for={{question.fqid}} class="">{{question.question}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--Grid row-->
+              {% else %}
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value=''>
+                            <label for={{question.fqid}} class="">{{question.question}}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+              {% endif %}
 
           {% elif question.type == 'checkbox' %}
 

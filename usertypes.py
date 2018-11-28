@@ -42,17 +42,17 @@ class User:
 
 	def getParameter(self, param):
 		if(param == 'First Name'):
-			getFirst(self)
+			return self.getFirst()
 		elif(param == 'Last Name'):
-			getLast(self)
+			return self.getLast()
 		elif(param == 'Middle Name'):
-			getMiddle(self)
+			return self.getMiddle()
 		elif(param == 'MI'):
-			getMiddleInitial(self)
+			return self.getMiddleInitial()
 		elif(param == 'Email'):
-			getEmail(self)
+			return self.getEmail()
 		elif(param in ['Rensselaer ID Number','RIN','ID Number']):
-			getIdNumber(self)
+			return self.getIdNumber()
 		else:
 			print('AutoFill Error on: ',param)
 			return ''
@@ -71,24 +71,6 @@ class Student(User):
 
 	def getUserType(self):
 		return "Student"
-
-	def getParameter(self, param):
-		if(param == 'First Name'):
-			getFirst(self)
-		elif(param == 'Last Name'):
-			getLast(self)
-		elif(param == 'Middle Name'):
-			getMiddle(self)
-		elif(param == 'MI'):
-			getMiddleInitial(self)
-		elif(param == 'Email'):
-			getEmail(self)
-		elif(param in ['Rensselaer ID Number','RIN','Student ID Number','ID Number']):
-			getIdNumber(self)
-		else:
-			print('AutoFill Error on: ',param)
-			return ''
-
 
 #This would be a member of the faculty (i.e. a Professor)
 class Faculty(User):

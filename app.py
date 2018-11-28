@@ -246,11 +246,11 @@ def formfill(id,title):
         for key in input:
             print(key, input[key])
             ids = key.split('-')
-            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])              
+            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
-        return redirect(url_for('home'))   
+        return redirect(url_for('home'))
     db.close()
-    return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
+    return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
