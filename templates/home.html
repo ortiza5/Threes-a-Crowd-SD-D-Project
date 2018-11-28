@@ -54,7 +54,17 @@
                     <td>{{form.title}}</td>
                     <td>{{form.username}}</td>
                     <td>{{form.approval}}</td>
-                    <td></td>
+                    <td>
+                      <div class="btn-group btn-group-sm center" role="group">
+                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                        <button type="button" class="btn btn-red btn-sm">Delete</button>
+                      </div>
+                        <!-- <a href="edit_filledform/{{form.fid}}" class="btn btn-default">Edit</a>
+                        <form action="{{url_for('delete_filledform', fid=form.fid)}}" method="post">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <input type="submit" value="Delete" class="btn btn-danger">
+                        </form> -->
+                    </td>
                   </tr>
                   {% set count.a = count.a + 1 %}
                 {% endfor %}
