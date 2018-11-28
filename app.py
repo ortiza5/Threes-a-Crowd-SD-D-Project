@@ -240,19 +240,16 @@ def formfill(id,title):
             formQuestions.append(newdict)
     '''get user input'''
     if request.method == 'POST':
+        input = request.form
+        print('look----',input)
         # Get Form Fields
-        for row in data:
-            fqid = str(row[0])+'-'+str(row[3])
-            input = request.form[fqid]
-            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [int(row[0]), str(session['user']), int(row[3]), input])              
-            db.commit()
-
-            print('-----------input:', input)
-            return redirect(url_for('home'))
-
-
+        for key in input:
+            print(key, input[key])
+            ids = key.split('-')
+            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])              
+        db.commit()
+        return redirect(url_for('home'))   
     db.close()
-
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title)
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
