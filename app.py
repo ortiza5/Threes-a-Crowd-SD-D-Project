@@ -8,14 +8,23 @@ from config import *
 from helper import *
 from functools import wraps
 import usertypes
+from threading import Thread
+
 
 app = Flask(__name__)
 app.secret_key=SECRET
+
+app.config['MAIL_SERVER']=MAIL_SERVER
+app.config['MAIL_PORT'] = MAIL_PORT
+app.config['MAIL_USERNAME'] = MAIL_USERNAME
+app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
+app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
+app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
 mail = Mail(app)
 
-# Index
+''' Startpage '''
 @app.route('/')
-def index():
+def startpage():
     return render_template('startpage.html')
 
 # Check if user logged in
@@ -29,6 +38,8 @@ def is_logged_in(f):
             return redirect(url_for('login'))
     return wrap
 
+
+# Home
 @app.route('/home')
 @is_logged_in
 def home():
@@ -61,15 +72,21 @@ def home():
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
 
+    # Renders the webpage according to the fid/title/username/approval we got above.
     return render_template('home.html',forms=forms, usertype=str(jsonpickle.decode(session['userOBJ'])))
 
+
+# about page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+
+# contact page
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -106,13 +123,14 @@ def login():
                 else:
                     error = 'Not a valid user type. Register again'
                     return render_template('login.html', error=error)
+                # store the user object in session
                 session['userOBJ'] = jsonpickle.encode(user)
                 # successful login
                 return redirect(url_for('home'))
             else:
                 db.close()
                 print('wrong pass')
-                error = 'Invalid login'
+                error = 'The username and password do not match. Please try again.'
                 return render_template('login.html', error=error)
         else:
             db.close()
@@ -122,13 +140,17 @@ def login():
 
     return render_template('login.html')
 
+
 # Logout
 @app.route('/logout')
 @is_logged_in
 def logout():
+    # clear session cookie
     session.clear()
     return redirect(url_for('login'))
 
+
+# Register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -158,9 +180,6 @@ def register():
                 # Commit your changes in the database
                 db.commit()
                 print('added user')
-                # ALEX: I think we shouldn't log them in when they register
-                # session['logged_in'] = True
-                # session['user'] = email
             except:
                 # Rollback in case there is any error
                 db.rollback()
@@ -203,7 +222,7 @@ def forms():
             while (thumbNumber == thumbs[i-1]):
                 thumbNumber = random.choice(choices)
         if (i > 2):
-            while ((thumbNumber == thumbs[i-1]) or (thumbNumber == thumbs[i-2])or (thumbNumber == thumbs[i-3])):
+            while ((thumbNumber == thumbs[i-1]) or (thumbNumber == thumbs[i-2]) or (thumbNumber == thumbs[i-3])):
                 thumbNumber = random.choice(choices)
         thumbs.append(thumbNumber)
         i = i + 1
@@ -251,10 +270,13 @@ def formfill(id,title):
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
         htmlbody = '<h1>HTML body</h1>'
-        send_email('test send', MAIL_USERNAME,'jingsting@gmail.com', 'hello this is a test', htmlbody)
+        msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
+        msg.body = "Hello this is a test !"
+        mail.send(msg)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
+
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
@@ -266,10 +288,10 @@ def search(searchterm):
     cursor = db.cursor()
     # execute SQL query using execute() method.
     # result = cursor.execute('SELECT * FROM )
-
-
     return render_template('search.html', searchterm=searchterm, forms=forms)
 
+
+# Delete filled forms when Delete button is clicked
 @app.route('/delete_filledform/<string:fid>', methods=['POST'])
 @is_logged_in
 def delete_filledform(fid):
@@ -285,7 +307,6 @@ def delete_filledform(fid):
 
     # Commit your changes in the database
     db.commit()
-
     db.close()
 
     flash('Form Deleted', 'success')
@@ -293,7 +314,7 @@ def delete_filledform(fid):
     return redirect(url_for('home'))
 
 
-
+# display a filled form when user clicks that form in dashboard
 @app.route('/edit_filledform/<int:fid>/<string:title>', methods=['GET', 'POST'])
 @is_logged_in
 def edit_filledform(fid,title):
@@ -337,23 +358,18 @@ def edit_filledform(fid,title):
     return render_template('editform.html', formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
 
 
-
-def send_async_email(app, msg):
-    with app.app_context():
-        mail.send(msg)
-
-
-def send_email(subject, sender, recipients, text_body, html_body):
-    msg = Message(subject, sender=sender, recipients=recipients)
-    msg.body = text_body
-    msg.html = html_body
-    Thread(target=send_async_email, args=(app, msg)).start()
+# def send_async_email(app, msg):
+#     with app.app_context():
+#         mail.send(msg)
 
 
-# if __name__ != '__main__':
-#     app.config['SESSION_TYPE'] = 'filesystem'
-#     sess.init_app(app)
-#     app.run(host="0.0.0.0", debug=True)
+# def send_email(subject, sender, recipients, text_body, html_body):
+#     msg = Message(subject, sender, recipients)
+#     msg.body = text_body
+#     msg.html = html_body
+#     mail.send(msg)
+#     # Thread(target=send_async_email, args=(app, msg)).start()
+
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'

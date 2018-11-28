@@ -1,8 +1,9 @@
 import pymysql
-from threading import Thread
 from config import *
 
-
+# Takes the information in the database and converts
+# it into a usable form (in this case, a list of 
+# dictionaries, each of which represents a single form)
 def query_forminfo():
     forms = []
     # Open database connection
@@ -23,15 +24,3 @@ def query_forminfo():
             newdict['pdflink'] = row[4]
             forms.append(newdict)
     return forms
-
-
-def send_async_email(app, msg):
-    with app.app_context():
-        mail.send(msg)
-
-
-def send_email(app, subject, sender, recipients, text_body, html_body):
-    msg = Message(subject, sender=sender, recipients=recipients)
-    msg.body = text_body
-    msg.html = html_body
-    Thread(target=send_async_email, args=(app, msg)).start()
