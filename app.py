@@ -349,7 +349,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg.html = html_body
     Thread(target=send_async_email, args=(app, msg)).start()
 
-    
+
 # if __name__ != '__main__':
 #     app.config['SESSION_TYPE'] = 'filesystem'
 #     sess.init_app(app)
