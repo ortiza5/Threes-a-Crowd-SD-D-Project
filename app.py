@@ -55,7 +55,7 @@ def home():
                     newdict = {}
                     newdict['fid'] = row[0]
                     newdict['title'] = formnames[row[0]]
-                    newdict['username'] = row[1]
+                    newdict['username'] = row[1].split('@')[0]
                     newdict['approval'] = 'Not Approved'
                     forms.append(newdict)
 
@@ -266,6 +266,27 @@ def search(searchterm):
 
     return render_template('search.html', searchterm=searchterm, forms=forms)
 
+@app.route('/delete_filledform/<string:fid>', methods=['POST'])
+@is_logged_in
+def delete_filledform(fid):
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+
+    # Execute the SQL command
+    cursor.execute('DELTE FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
+    cursor.execute('DELTE FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+
+    # Commit your changes in the database
+    db.commit()
+
+    db.close()
+
+    flash('Form Deleted', 'success')
+
+    return redirect(url_for('home'))
 
 # if __name__ != '__main__':
 #     app.config['SESSION_TYPE'] = 'filesystem'
