@@ -340,9 +340,9 @@ def delete_filledform(fid,owner):
 
 
 # display a filled form when user clicks that form in dashboard
-@app.route('/edit_filledform/<int:fid>/<string:title>', methods=['GET', 'POST'])
+@app.route('/edit_filledform/<string:username>/<int:fid>/<string:title>', methods=['GET', 'POST'])
 @is_logged_in
-def edit_filledform(fid,title):
+def edit_filledform(username,fid,title):
     formQuestions = []
     oldFormInputs = {}
     # Open database connection
@@ -362,7 +362,7 @@ def edit_filledform(fid,title):
             formQuestions.append(newdict)
 
     # Get the old answers from the database
-    result = cursor.execute('SELECT * FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+    result = cursor.execute('SELECT * FROM formfilled WHERE fid = %s AND username = %s',[fid,username])
     if result > 0:
         data = cursor.fetchall()
         for row in data:
@@ -380,7 +380,13 @@ def edit_filledform(fid,title):
         db.commit()
         return redirect(url_for('home'))
     db.close()
-    return render_template('editform.html', formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
+    # determine if the viewer can only edit or view
+    editPermission = (username == session['user'])
+    if not editPermission:
+        editability='disabled'
+    else:
+        editability=''
+    return render_template('editform.html', edit=editability, formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title)
 
 # Updates the status of the form to Approved or Dennied
 @app.route('/update_status/<int:fid>/<string:owner>/<string:status>/', methods=['GET', 'POST'])

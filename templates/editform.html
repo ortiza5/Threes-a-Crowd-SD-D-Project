@@ -20,7 +20,11 @@
   <div class="container">
     <!--Section: Form-->
     <section class="section">
-      <h2 class="h1-responsive font-weight-bold my-5">Edit your responses</h2>
+      {% if edit == '' %}
+        <h2 class="h1-responsive font-weight-bold my-5">Edit your responses</h2>
+      {% else %}
+        <h2 class="h1-responsive font-weight-bold my-5">View the responses</h2>
+      {% endif %}
       <form id="contact-form" name="contact-form" method="POST">
         <!--Go through all questions and render them-->
         {% for question in formQuestions %}
@@ -65,7 +69,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="md-form mb-0">
-                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}}>
+                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}} {{edit}}>
                         <label for={{question.fqid}} class="">{{question.question}}</label>
                     </div>
                 </div>
@@ -79,7 +83,7 @@
 
           {% elif question.type == 'select' %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}}>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}} {{edit}}>
                     <option value="" disabled="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
                       {% if option == answers[question.fqid] %}
@@ -94,18 +98,22 @@
           {% elif question.type == 'crnsearch' %}
             <!--Grid row-->
             <div class="row">
-              <a href="https://yacs.cs.rpi.edu/" target="_blank">
-                <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
-              </a>
+              {% if edit == '' %}
+                <a href="https://yacs.cs.rpi.edu/" target="_blank">
+                  <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
+                </a>
+              {% endif %}
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form mb-0">
-                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}}>
+                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}} {{edit}}>
                     <label for={{question.fqid}} class="">Course CRN</label>
                   </div>
                 </div>
               </div>
-            </div>
+            {% if edit == '' %}
+              </div>
+            {% endif %}
 
           {% elif question.type == 'comment' %}
 
