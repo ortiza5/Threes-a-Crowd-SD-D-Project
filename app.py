@@ -287,7 +287,8 @@ def formfill(id,title):
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
-        send_email('Form Submitted', MAIL_USERNAME, [recipient_mail], msgstr)
+        if len(recipient_mail) >= 3:
+            send_email('Form Submitted', MAIL_USERNAME, [recipient_mail], msgstr)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -441,5 +442,5 @@ def send_email(subject, sender, recipients, text_body):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
