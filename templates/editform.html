@@ -97,12 +97,12 @@
 
           {% elif question.type == 'crnsearch' %}
             <!--Grid row-->
-            <div class="row">
-              {% if edit == '' %}
-                <a href="https://yacs.cs.rpi.edu/" target="_blank">
-                  <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
-                </a>
-              {% endif %}
+            {% if edit == '' %}
+              <div class="row">
+                  <a href="https://yacs.cs.rpi.edu/" target="_blank">
+                    <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
+                  </a>
+            {% endif %}
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form mb-0">
@@ -124,7 +124,11 @@
       </form>
 
       <div class="text-center text-md-left">
-        <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Save</a>
+        {% if edit == '' %}
+          <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Save</a>
+        {% else %}
+          <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Back</a>
+        {% endif %}
       </div>
       <div class="status"></div>
 
