@@ -304,7 +304,7 @@ def search():
     allforms = cursor.fetchall()
     print(allforms)
     for form in allforms:
-        if re.match(searchterm, form):
+        if re.match(searchterm, form): # THIS IS THE PART THAT IS NOT WORKING==============================
             formsfound.append()
     if len(formsfound)==0:
         flash('No results found!')
