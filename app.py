@@ -304,7 +304,7 @@ def search():
     allforms = cursor.fetchall()
     print(allforms)
     for form in allforms:
-        if re.match(searchterm.lower(), form[0].lower()):
+        if re.search(searchterm.lower(), form[0].lower()):
             newdict = {}
             newdict['title'] = form[0]
             newdict['category'] = form[1]
