@@ -100,6 +100,20 @@
                 </div>
 
           {% elif question.type == 'crnsearch' %}
+            <!--Grid row-->
+            <div class="row">
+              <a href="https://yacs.cs.rpi.edu/" target="_blank">
+                <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
+              </a>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="md-form mb-0">
+                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value=''>
+                    <label for={{question.fqid}} class="">Course CRN</label>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           {% elif question.type == 'comment' %}
 
