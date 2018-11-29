@@ -383,10 +383,14 @@ def update_status(fid,owner,status):
     cursor = db.cursor()
     # Execute the SQL command
     cursor.execute('UPDATE completedforms SET status=%s WHERE fid=%s AND owner=%s',[status, fid, owner])
-
+    cursor.execute('SELECT title FROM forminfo WHERE fid=%s', [fid])
+    formname = cursor.fetchall()[0][0]
     # Commit your changes in the database
     db.commit()
     db.close()
+
+    msgstr = 'Hi!\n\nThe form '+formname+' you submitted has been '+status+'.\n\nFor more information please go to fastforms.ml\n\nThree\'s a Crowd Team'
+    send_email('Status update', MAIL_USERNAME, [owner], msgstr)
 
     flash(('Status chagned to '+status), 'success')
 
