@@ -288,20 +288,20 @@ def formfill(id,title):
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
-        # Get Forms that match search term
-        formsfound = []
-        # Open database connection
-        db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
-        # prepare a cursor object using cursor() method
-        cursor = db.cursor()
-        # execute SQL query using execute() method.
-        result = cursor.execute('SELECT title, fid FROM forminfo')
-        allforms = cursor.fetchall()
-        print(allforms)
-        for form in allforms:
-            if re.match(searchterm, form):
-                formsfound.append()
-    if not len(formsfound)==0:
+    # Get Forms that match search term
+    formsfound = []
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # execute SQL query using execute() method.
+    result = cursor.execute('SELECT title, fid FROM forminfo')
+    allforms = cursor.fetchall()
+    print(allforms)
+    for form in allforms:
+        if re.match(searchterm, form):
+            formsfound.append()
+    if len(formsfound)==0:
         flash('No results found!')
         return redirect('/')
     else:
