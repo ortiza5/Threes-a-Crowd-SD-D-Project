@@ -374,9 +374,9 @@ if __name__ != '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
     sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
-    gunicorn_logger = logging.getLogger(‘gunicorn.error’)
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
+#     gunicorn_logger = logging.getLogger(‘gunicorn.error’)
+#     app.logger.handlers = gunicorn_logger.handlers
+#     app.logger.setLevel(gunicorn_logger.level)
 
 
 if __name__ == '__main__':
