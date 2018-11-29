@@ -300,14 +300,17 @@ def search():
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # execute SQL query using execute() method.
-    result = cursor.execute('SELECT title, fid FROM forminfo')
+    result = cursor.execute('SELECT title, category, fid FROM forminfo')
     allforms = cursor.fetchall()
     print(allforms)
     for form in allforms:
-        if re.match(searchterm, form): # THIS IS THE PART THAT IS NOT WORKING==============================
-            formsfound.append()
+        if re.match(searchterm.lower(), form[0].lower()):
+            newdict = {}
+            newdict['title'] = form[0]
+            newdict['category'] = form[1]
+            formsfound.append(newdict)
     if len(formsfound)==0:
-        flash('No results found!')
+        flash('No search results found!','danger')
         return redirect('/')
     else:
         return render_template('search.html', searchterm=searchterm, forms=formsfound)
@@ -426,5 +429,5 @@ def send_email(subject, sender, recipients, text_body):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
