@@ -73,6 +73,7 @@ def home():
             newdict['fid'] = row[0]
             newdict['title'] = formnames[row[0]]
             newdict['username'] = row[1]
+            newdict['datetime'] = row[4]
             newdict['approval'] = row[2]
             forms.append(newdict)
 
@@ -320,9 +321,9 @@ def search():
 
 
 # Delete filled forms when Delete button is clicked
-@app.route('/delete_filledform/<int:fid>/<string:owner>', methods=['POST'])
+@app.route('/delete_filledform/<int:fid>/<string:owner>/<string:date_time>', methods=['POST'])
 @is_logged_in
-def delete_filledform(fid,owner):
+def delete_filledform(fid,owner,date_time):
     # Open database connection
     db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
 
@@ -330,8 +331,8 @@ def delete_filledform(fid,owner):
     cursor = db.cursor()
 
     # Execute the SQL command
-    cursor.execute('DELETE FROM completedforms WHERE fid = %s AND owner = %s',[fid,owner])
-    cursor.execute('DELETE FROM formfilled WHERE fid = %s AND username = %s',[fid,owner])
+    cursor.execute('DELETE FROM completedforms WHERE fid = %s AND owner = %s AND datetime = %s',[fid,owner,date_time])
+    cursor.execute('DELETE FROM formfilled WHERE fid = %s AND username = %s AND datetime = %s',[fid,owner,date_time])
 
     # Commit your changes in the database
     db.commit()
@@ -343,9 +344,9 @@ def delete_filledform(fid,owner):
 
 
 # display a filled form when user clicks that form in dashboard
-@app.route('/edit_filledform/<string:username>/<int:fid>/<string:title>', methods=['GET', 'POST'])
+@app.route('/edit_filledform/<string:username>/<int:fid>/<string:title>/<string:date_time>', methods=['GET', 'POST'])
 @is_logged_in
-def edit_filledform(username,fid,title):
+def edit_filledform(username,fid,title,date_time):
     formQuestions = []
     oldFormInputs = {}
     # Open database connection
@@ -365,7 +366,7 @@ def edit_filledform(username,fid,title):
             formQuestions.append(newdict)
 
     # Get the old answers from the database
-    result = cursor.execute('SELECT * FROM formfilled WHERE fid = %s AND username = %s',[fid,username])
+    result = cursor.execute('SELECT * FROM formfilled WHERE fid = %s AND username = %s AND datetime = %s',[fid,username,date_time])
     if result > 0:
         data = cursor.fetchall()
         for row in data:
@@ -374,12 +375,14 @@ def edit_filledform(username,fid,title):
     # get user input
     if request.method == 'POST':
         input = request.form
+        time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print('look----',input)
         # Get Form Fields
         for key in input:
             print(key, input[key])
             ids = key.split('-')
-            cursor.execute('UPDATE formfilled SET answer=%s WHERE fid=%s AND username=%s AND qid=%s',[input[key], ids[0], str(session['user']), ids[1]])
+            cursor.execute('UPDATE formfilled SET answer=%s, datetime=%s WHERE fid=%s AND username=%s AND qid=%s AND datetime=%s',[input[key], time, ids[0], str(session['user']), ids[1], date_time])
+        cursor.execute('UPDATE completedforms SET datetime=%s WHERE fid=%s AND owner=%s AND datetime=%s',[time,fid,username,date_time])
         db.commit()
         return redirect(url_for('home'))
     db.close()
@@ -392,15 +395,15 @@ def edit_filledform(username,fid,title):
     return render_template('editform.html', edit=editability, formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title)
 
 # Updates the status of the form to Approved or Dennied
-@app.route('/update_status/<int:fid>/<string:owner>/<string:status>/', methods=['GET', 'POST'])
+@app.route('/update_status/<int:fid>/<string:owner>/<string:date_time>/<string:status>', methods=['GET', 'POST'])
 @is_logged_in
-def update_status(fid,owner,status):
+def update_status(fid,owner,status,date_time):
     # Open database connection
     db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # Execute the SQL command
-    cursor.execute('UPDATE completedforms SET status=%s WHERE fid=%s AND owner=%s',[status, fid, owner])
+    cursor.execute('UPDATE completedforms SET status=%s WHERE fid=%s AND owner=%s AND datetime=%s',[status, fid, owner,date_time])
     cursor.execute('SELECT title FROM forminfo WHERE fid=%s', [fid])
     formname = cursor.fetchall()[0][0]
     # Commit your changes in the database
