@@ -283,7 +283,7 @@ def formfill(id,title):
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
-        send_email('Form Submitted', MAIL_USERNAME, [recipient_mail], msgstr)
+        send_email('Form Submitted', MAIL_USERNAME, recipient_mail, msgstr)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -399,7 +399,7 @@ def update_status(fid,owner,status):
     db.close()
 
     msgstr = 'Hi!\n\nThe form '+formname+' you submitted has been '+status+'.\n\nFor more information please go to fastforms.ml\n\nThree\'s a Crowd Team'
-    send_email('Status update', MAIL_USERNAME, [owner], msgstr)
+    send_email('Status update', MAIL_USERNAME, owner, msgstr)
 
     flash(('Status chagned to '+status), 'success')
 
@@ -411,7 +411,7 @@ def update_status(fid,owner,status):
 
 
 def send_email(subject, sender, recipients, text_body):
-    msg = Message(subject, sender, recipients)
+    msg = Message(subject, sender, recipients = [recipients])
     msg.body = text_body
     # msg.html = html_body
     mail.send(msg)
