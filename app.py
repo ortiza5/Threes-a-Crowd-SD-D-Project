@@ -22,7 +22,7 @@ app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
 app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
 mail = Mail(app)
 
-''' Startpage '''
+# Startpage
 @app.route('/')
 def startpage():
     return render_template('startpage.html')
@@ -44,14 +44,15 @@ def is_logged_in(f):
 @is_logged_in
 def home():
     forms = []
+    user = jsonpickle.decode(session['userOBJ'])
     # Get forms that need to be displayed  in table
-    if jsonpickle.decode(session['userOBJ']).getUserType() == "Staff":
+    if user.getUserType() == "Staff":
         # Open database connection
         db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
         # prepare a cursor object using cursor() method
         cursor = db.cursor()
         # execute SQL query using execute() method.
-        result = cursor.execute('SELECT * FROM formfilled')
+        result = cursor.execute('SELECT * FROM completedforms')
         if result > 0:
             data = cursor.fetchall()
             allforms = query_forminfo()
@@ -59,21 +60,18 @@ def home():
             # Get all the form names based off the fid
             for form in allforms:
                 formnames[form['fid']] = form['title']
-            newform = ''
 
             # Generate the table information for staff members
             for row in data:
-                if (str(row[0])+str(row[1])+str(row[2])) != newform:
-                    newform = (str(row[0])+str(row[1])+str(row[2]))
-                    newdict = {}
-                    newdict['fid'] = row[0]
-                    newdict['title'] = formnames[row[0]]
-                    newdict['username'] = row[1].split('@')[0]
-                    newdict['approval'] = 'Not Approved'
-                    forms.append(newdict)
+                newdict = {}
+                newdict['fid'] = row[0]
+                newdict['title'] = formnames[row[0]]
+                newdict['username'] = row[1].split('@')[0]
+                newdict['approval'] = row[2]
+                forms.append(newdict)
 
     # Renders the webpage according to the fid/title/username/approval we got above.
-    return render_template('home.html',forms=forms, usertype=str(jsonpickle.decode(session['userOBJ'])))
+    return render_template('home.html',forms=forms, user=user)
 
 
 # about page
@@ -276,6 +274,9 @@ def formfill(id,title):
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
             if key == recipient_fqid:
                 recipient_mail = input[key]
+        # Get viewing permissions for the form (last question in every form)
+        shareWith = input[str(id) +'-'+str(len(input)-1)]
+        cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s)', [id, str(session['user']), 'Filled', shareWith])
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msg = Message('Form Submitted', sender = MAIL_USERNAME,recipients = [recipient_mail])
