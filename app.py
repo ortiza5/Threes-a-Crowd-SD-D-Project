@@ -253,7 +253,7 @@ def formfill(id,title):
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # execute SQL query using execute() method.
-    formname = recipient_fqid = recipient_mail = last_fqid = first_fqid = last_name = first_name = ''
+    recipient_mail = formname = recipient_fqid = last_fqid = first_fqid = last_name = first_name = ''
     result = cursor.execute('SELECT title FROM forminfo WHERE fid = %s', [id])
     if result > 0:
         formname = cursor.fetchall()[0][0]
@@ -304,7 +304,7 @@ def search():
     allforms = cursor.fetchall()
     print(allforms)
     for form in allforms:
-        if re.match(searchterm.lower(), form[0].lower()):
+        if re.search(searchterm.lower(), form[0].lower()):
             newdict = {}
             newdict['title'] = form[0]
             newdict['category'] = form[1]
@@ -411,7 +411,7 @@ def update_status(fid,owner,status):
 
 
 def send_email(subject, sender, recipients, text_body):
-    msg = Message(subject, sender, recipients)
+    msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
     # msg.html = html_body
     mail.send(msg)
