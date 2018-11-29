@@ -250,7 +250,7 @@ def formfill(id,title):
     formname = recipient_fqid = recipient_mail = last_fqid = first_fqid = last_name = first_name = ''
     result = cursor.execute('SELECT title FROM forminfo WHERE fid = %s', [id])
     if result > 0:
-        formname = cursor.fetchall()
+        formname = cursor.fetchall()[0][0]
     result = cursor.execute('SELECT * FROM question WHERE fid = %s', [id])
     if result > 0:
         data = cursor.fetchall()
@@ -261,12 +261,11 @@ def formfill(id,title):
             newdict['fqid'] = str(row[0])+'-'+str(row[3])
             newdict['typeparam'] = row[4]
             formQuestions.append(newdict)
-            if newdict['question'] == 'Recipient Email'
+            if newdict['question'] == 'Recipient Email':
                 recipient_fqid = newdict['fqid']
     # get user input
     if request.method == 'POST':
         input = request.form
-        print('look----',input)
         # Get Form Fields
         for key in input:
             print(key, input[key])
@@ -278,8 +277,8 @@ def formfill(id,title):
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msg = Message('Form Submitted', sender = MAIL_USERNAME,recipients = [recipient_mail])
-        msg.body = "Hi!\n\n"+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n\
-                    Check it out on https://fastforms.ml/\n\nThree\'s a Crowd Team'
+        msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
+        msg.body = msgstr
         mail.send(msg)
         return redirect(url_for('home'))
     db.close()
