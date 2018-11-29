@@ -9,6 +9,7 @@ from helper import *
 from functools import wraps
 import usertypes
 from threading import Thread
+import re
 
 
 app = Flask(__name__)
@@ -287,15 +288,25 @@ def formfill(id,title):
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
+    print('here!!!!!!!!!!!')
     # Get Forms that match search term
-    forms = []
+    formsfound = []
     # Open database connection
     db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # execute SQL query using execute() method.
-    # result = cursor.execute('SELECT * FROM )
-    return render_template('search.html', searchterm=searchterm, forms=forms)
+    result = cursor.execute('SELECT title, fid FROM forminfo')
+    allforms = cursor.fetchall()
+    print(allforms)
+    for form in allforms:
+        if re.match(searchterm, form):
+            formsfound.append()
+    if len(formsfound)==0:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        return render_template('search.html', searchterm=searchterm, forms=formsfound)
 
 
 # Delete filled forms when Delete button is clicked
@@ -389,5 +400,5 @@ def edit_filledform(fid,title):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
