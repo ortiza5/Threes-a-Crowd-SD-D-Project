@@ -299,7 +299,7 @@ def search(searchterm):
 
 
 # Delete filled forms when Delete button is clicked
-@app.route('/delete_filledform/<string:fid>', methods=['POST'])
+@app.route('/delete_filledform/<int:fid>', methods=['POST'])
 @is_logged_in
 def delete_filledform(fid):
     # Open database connection
@@ -309,8 +309,8 @@ def delete_filledform(fid):
     cursor = db.cursor()
 
     # Execute the SQL command
-    cursor.execute('DELETE  FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
-    cursor.execute('DELETE  FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+    cursor.execute('DELETE FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
+    cursor.execute('DELETE FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
 
     # Commit your changes in the database
     db.commit()

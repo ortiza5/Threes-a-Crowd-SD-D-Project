@@ -55,17 +55,33 @@
                     <td>{{form.username}}</td>
                     <td>{{form.approval}}</td>
                     <td>
-                      <div class="btn-group btn-group-sm " role="group">
-                        <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
-                          <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                        </a>
-                        <button type="button" class="btn btn-red btn-sm">Delete</button>
-                      </div>
-                        <!-- <a href="edit_filledform/{{form.fid}}" class="btn btn-default">Edit</a>
-                        <form action="{{url_for('delete_filledform', fid=form.fid)}}" method="post">
-                          <input type="hidden" name="_method" value="DELETE">
-                          <input type="submit" value="Delete" class="btn btn-danger">
-                        </form> -->
+                      {% if user.getUserType() == "Student" %}
+                        <div class="btn-group btn-group-sm " role="group">
+                          <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
+                            <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                          </a>
+                          <form action="{{url_for('delete_filledform', fid=form.fid)}}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" value="Delete" class="btn btn-red btn-sm">Delete</button>
+                          </form>
+                        </div>
+                      {% elif user.getUserType() == "Staff" or user.getUserType() == "Faculty" %}
+                        <div class="btn-group btn-group-sm " role="group">
+                          <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
+                            <button type="button" class="btn btn-success btn-sm">Approve</button>
+                          </a>
+                          <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
+                            <button type="button" class="btn btn-danger btn-sm">Deny</button>
+                          </a>
+                          <a href="/edit_filledform/{{form.fid}}/{{form.title}}">
+                            <button type="button" class="btn btn-primary btn-sm">View</button>
+                          </a>
+                          <form action="{{url_for('delete_filledform', fid=form.fid)}}" method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" value="Delete" class="btn btn-red btn-sm">Delete</button>
+                          </form>
+                        </div>
+                      {% endif %}
                     </td>
                   </tr>
                   {% set count.a = count.a + 1 %}
