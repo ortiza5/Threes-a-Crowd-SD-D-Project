@@ -28,7 +28,7 @@
             <!--Grid row-->
             <div class="row">
               <div class="col-md-12">
-                <div class="md-form mb-0">
+                <div class="md-form my-0">
                   <blockquote>{{question.question}}</blockquote>
                 </div>
               </div>
@@ -40,7 +40,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="md-form mb-0">
-                  <p class="text-left font-weight-bold">{{question.question}}</p>
+                  <h3 class="text-left font-weight-bold">{{question.question}}</h3>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="md-form mb-0">
-                  <p class="text-center font-weight-bold">{{question.question}}</p>
+                  <h3 class="text-center font-weight-bold">{{question.question}}</h3>
                 </div>
               </div>
             </div>
@@ -61,12 +61,11 @@
                   <hr class="hr-dark">
 
           {% elif question.type == 'text' %}
-            {% set temp = question.fqid %}
             <!--Grid row-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="md-form mb-0">
-                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers.temp}}>
+                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}}>
                         <label for={{question.fqid}} class="">{{question.question}}</label>
                     </div>
                 </div>
@@ -79,12 +78,11 @@
           {% elif question.type == 'radiobutton' %}
 
           {% elif question.type == 'select' %}
-            {% set temp = question.fqid %}
                 <div class="md-form mb-0">
                   <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}}>
                     <option value="" disabled="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
-                      {% if option == answers.temp %}
+                      {% if option == answers[question.fqid] %}
                         <option value={{option}} selected="">{{option}}</option>
                       {% else %}
                         <option value={{option}}>{{option}}</option>
@@ -94,10 +92,22 @@
                 </div>
 
           {% elif question.type == 'crnsearch' %}
+            <!--Grid row-->
+            <div class="row">
+              <a href="https://yacs.cs.rpi.edu/" target="_blank">
+                <button type="button" class="btn btn-primary btn-sm mt-4">Find CRN on YACS</button>
+              </a>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="md-form mb-0">
+                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{answers[question.fqid]}}>
+                    <label for={{question.fqid}} class="">Course CRN</label>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           {% elif question.type == 'comment' %}
-
-          {% elif question.type == 'email' %}
 
           {% elif question.type == 'button' %}
 
