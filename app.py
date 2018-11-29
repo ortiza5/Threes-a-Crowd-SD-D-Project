@@ -288,6 +288,7 @@ def formfill(id,title):
 
 @app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
 def search(searchterm):
+    print('here!!!!!!!!!!!')
     # Get Forms that match search term
     formsfound = []
     # Open database connection
@@ -399,5 +400,5 @@ def edit_filledform(fid,title):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
