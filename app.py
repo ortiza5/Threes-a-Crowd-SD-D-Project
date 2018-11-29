@@ -269,9 +269,9 @@ def formfill(id,title):
             ids = key.split('-')
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
-        # msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
-        # msg.body = "Hello this is a test !"
-        # mail.send(msg)
+        msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
+        msg.body = "Hello this is a test !"
+        mail.send(msg)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
@@ -370,7 +370,16 @@ def edit_filledform(fid,title):
 #     # Thread(target=send_async_email, args=(app, msg)).start()
 
 
-if __name__ == '__main__':
+if __name__ != '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
     sess.init_app(app)
+    app.run(host="0.0.0.0", debug=True)
+    gunicorn_logger = logging.getLogger(‘gunicorn.error’)
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
+
+if __name__ == '__main__':
+    app.config['SESSION_TYPE'] = 'filesystem'
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
