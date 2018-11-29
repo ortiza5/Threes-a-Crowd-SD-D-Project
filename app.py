@@ -266,7 +266,6 @@ def formfill(id,title):
     '''get user input'''
     if request.method == 'POST':
         input = request.form
-        print('look----',input)
         # Get Form Fields
         for key in input:
             print(key, input[key])
@@ -280,8 +279,7 @@ def formfill(id,title):
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msg = Message('Form Submitted', sender = MAIL_USERNAME,recipients = [recipient_mail])
-        msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on https://fastforms.ml/\n\nThree\'s a Crowd Team'
-        print('----------------', msgstr)
+        msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
         msg.body = msgstr
         mail.send(msg)
         return redirect(url_for('home'))
