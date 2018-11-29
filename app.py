@@ -350,7 +350,7 @@ def edit_filledform(fid,title):
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # execute SQL query using execute() method.
-    result = cursor.execute('SELECT * FROM question WHERE fid = %s', [fid])
+    result = cursor.execute('SELECT * FROM question WHERE fid = %s ORDER BY qid ASC', [fid])
     if result > 0:
         data = cursor.fetchall()
         for row in data:
