@@ -429,5 +429,5 @@ def send_email(subject, sender, recipients, text_body):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    # sess.init_app(app)
+    sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
