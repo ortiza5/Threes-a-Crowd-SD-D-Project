@@ -263,7 +263,7 @@ def formfill(id,title):
             formQuestions.append(newdict)
             if newdict['question'] == 'Recipient Email'
                 recipient_fqid = newdict['fqid']
-    '''get user input'''
+    # get user input
     if request.method == 'POST':
         input = request.form
         print('look----',input)
@@ -274,9 +274,7 @@ def formfill(id,title):
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
             if key == recipient_fqid:
                 recipient_mail = input[key]
-        # Get viewing permissions for the form (last question in every form)
-        shareWith = input[str(id) +'-'+str(len(input)-1)]
-        cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s)', [id, str(session['user']), 'Filled', shareWith])
+        cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s)', [id, str(session['user']), 'Filled', recipient_mail])
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msg = Message('Form Submitted', sender = MAIL_USERNAME,recipients = [recipient_mail])
@@ -353,7 +351,7 @@ def edit_filledform(fid,title):
         for row in data:
             oldFormInputs[str(row[0])+'-'+str(row[2])] = row[3]
 
-    '''get user input'''
+    # get user input
     if request.method == 'POST':
         input = request.form
         print('look----',input)
