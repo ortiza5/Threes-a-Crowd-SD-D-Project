@@ -10,6 +10,7 @@ from functools import wraps
 import usertypes
 from threading import Thread
 import re
+import datetime
 
 
 app = Flask(__name__)
@@ -271,15 +272,17 @@ def formfill(id,title):
                 recipient_fqid = newdict['fqid']
     # get user input
     if request.method == 'POST':
+        # get date time
+        time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         input = request.form
         # Get Form Fields
         for key in input:
             print(key, input[key])
             ids = key.split('-')
-            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
+            cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key], time])
             if key == recipient_fqid:
                 recipient_mail = input[key]
-        cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s)', [id, str(session['user']), 'Filled', recipient_mail])
+        cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s, %s)', [id, str(session['user']), 'Filled', recipient_mail, time])
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
