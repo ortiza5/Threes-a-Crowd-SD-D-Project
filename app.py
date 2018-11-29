@@ -67,7 +67,7 @@ def home():
                 newdict = {}
                 newdict['fid'] = row[0]
                 newdict['title'] = formnames[row[0]]
-                newdict['username'] = row[1].split('@')[0]
+                newdict['username'] = row[1]
                 newdict['approval'] = row[2]
                 forms.append(newdict)
 
@@ -310,9 +310,9 @@ def search(searchterm):
 
 
 # Delete filled forms when Delete button is clicked
-@app.route('/delete_filledform/<int:fid>', methods=['POST'])
+@app.route('/delete_filledform/<int:fid>/<string:owner>', methods=['POST'])
 @is_logged_in
-def delete_filledform(fid):
+def delete_filledform(fid,owner):
     # Open database connection
     db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
 
@@ -320,8 +320,8 @@ def delete_filledform(fid):
     cursor = db.cursor()
 
     # Execute the SQL command
-    cursor.execute('DELETE FROM completedforms WHERE fid = %s AND owner = %s',[fid,session['user']])
-    cursor.execute('DELETE FROM formfilled WHERE fid = %s AND username = %s',[fid,session['user']])
+    cursor.execute('DELETE FROM completedforms WHERE fid = %s AND owner = %s',[fid,owner])
+    cursor.execute('DELETE FROM formfilled WHERE fid = %s AND username = %s',[fid,owner])
 
     # Commit your changes in the database
     db.commit()
@@ -375,6 +375,24 @@ def edit_filledform(fid,title):
     db.close()
     return render_template('editform.html', formQuestions = formQuestions, answers = oldFormInputs, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
 
+# Updates the status of the form to Approved or Dennied
+@app.route('/update_status/<int:fid>/<string:owner>/<string:status>/', methods=['GET', 'POST'])
+@is_logged_in
+def update_status(fid,owner,status):
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # Execute the SQL command
+    cursor.execute('UPDATE completedforms SET status=%s WHERE fid=%s AND owner=%s',[status, fid, owner])
+
+    # Commit your changes in the database
+    db.commit()
+    db.close()
+
+    flash(('Status chagned to '+status), 'success')
+
+    return redirect(url_for('home'))
 
 # def send_async_email(app, msg):
 #     with app.app_context():
