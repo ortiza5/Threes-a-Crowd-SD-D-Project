@@ -269,10 +269,9 @@ def formfill(id,title):
             ids = key.split('-')
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
         db.commit()
-        htmlbody = '<h1>HTML body</h1>'
-        msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
-        msg.body = "Hello this is a test !"
-        mail.send(msg)
+        # msg = Message('test send', sender = MAIL_USERNAME,recipients = ['jingsting@gmail.com'])
+        # msg.body = "Hello this is a test !"
+        # mail.send(msg)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
