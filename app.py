@@ -399,12 +399,12 @@ def update_status(fid,owner,status):
 #         mail.send(msg)
 
 
-# def send_email(subject, sender, recipients, text_body, html_body):
-#     msg = Message(subject, sender, recipients)
-#     msg.body = text_body
-#     msg.html = html_body
-#     mail.send(msg)
-#     # Thread(target=send_async_email, args=(app, msg)).start()
+def send_email(subject, sender, recipients, text_body, html_body):
+    msg = Message(subject, sender, recipients)
+    msg.body = text_body
+    msg.html = html_body
+    mail.send(msg)
+    # Thread(target=send_async_email, args=(app, msg)).start()
 
 
 # if __name__ != '__main__':
@@ -418,5 +418,5 @@ def update_status(fid,owner,status):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    # sess.init_app(app)
+    sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
