@@ -47,29 +47,34 @@ def home():
     forms = []
     user = jsonpickle.decode(session['userOBJ'])
     # Get forms that need to be displayed  in table
+    # Open database connection
+    db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+    # prepare a cursor object using cursor() method
+    cursor = db.cursor()
+    # execute SQL query using execute() method.
     if user.getUserType() == "Staff":
-        # Open database connection
-        db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
-        # prepare a cursor object using cursor() method
-        cursor = db.cursor()
-        # execute SQL query using execute() method.
         result = cursor.execute('SELECT * FROM completedforms')
-        if result > 0:
-            data = cursor.fetchall()
-            allforms = query_forminfo()
-            formnames = {}
-            # Get all the form names based off the fid
-            for form in allforms:
-                formnames[form['fid']] = form['title']
+    elif user.getUserType() == "Student":
+        result = cursor.execute('SELECT * FROM completedforms WHERE owner=%s',[session['user']])
+    elif user.getUserType() == "Faculty":
+        result = cursor.execute('SELECT * FROM completedforms WHERE viewer=%s',[session['user']])
+    if result > 0:
+        data = cursor.fetchall()
+        allforms = query_forminfo()
+        formnames = {}
+        # Get all the form names based off the fid
+        for form in allforms:
+            formnames[form['fid']] = form['title']
 
-            # Generate the table information for staff members
-            for row in data:
-                newdict = {}
-                newdict['fid'] = row[0]
-                newdict['title'] = formnames[row[0]]
-                newdict['username'] = row[1]
-                newdict['approval'] = row[2]
-                forms.append(newdict)
+        # Generate the table information for staff members
+        for row in data:
+            newdict = {}
+            newdict['fid'] = row[0]
+            newdict['title'] = formnames[row[0]]
+            newdict['username'] = row[1]
+            newdict['approval'] = row[2]
+            forms.append(newdict)
+
 
     # Renders the webpage according to the fid/title/username/approval we got above.
     return render_template('home.html',forms=forms, user=user)
@@ -286,8 +291,9 @@ def formfill(id,title):
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
 
 
-@app.route('/search/<string:searchterm>', methods=['GET', 'POST'])
-def search(searchterm):
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    searchterm = request.form['term']
     print('here!!!!!!!!!!!')
     # Get Forms that match search term
     formsfound = []
@@ -418,5 +424,5 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
-    sess.init_app(app)
+    # sess.init_app(app)
     app.run(host="0.0.0.0", debug=True)
