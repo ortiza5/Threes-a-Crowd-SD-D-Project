@@ -253,8 +253,7 @@ def formfill(id,title):
     # prepare a cursor object using cursor() method
     cursor = db.cursor()
     # execute SQL query using execute() method.
-    formname = recipient_fqid = last_fqid = first_fqid = last_name = first_name = ''
-    recipients = []
+    recipient_mail = formname = recipient_fqid = last_fqid = first_fqid = last_name = first_name = ''
     result = cursor.execute('SELECT title FROM forminfo WHERE fid = %s', [id])
     if result > 0:
         formname = cursor.fetchall()[0][0]
@@ -279,12 +278,12 @@ def formfill(id,title):
             ids = key.split('-')
             cursor.execute('INSERT INTO formfilled VALUES (%s, %s, %s, %s)', [ids[0], str(session['user']), ids[1], input[key]])
             if key == recipient_fqid:
-                recipients.append(input[key])
+                recipient_mail = input[key]
         cursor.execute('INSERT INTO completedforms VALUES (%s, %s, %s, %s)', [id, str(session['user']), 'Filled', recipient_mail])
         db.commit()
         usr = jsonpickle.decode(session['userOBJ'])
         msgstr = 'Hi!\n\n'+usr.getFirst()+' '+usr.getLast()+' just submitted '+formname+' to you.\n\n'+'Check it out on fastforms.ml\n\nThree\'s a Crowd Team'
-        send_email('Form Submitted', MAIL_USERNAME, recipients, msgstr)
+        send_email('Form Submitted', MAIL_USERNAME, [recipient_mail], msgstr)
         return redirect(url_for('home'))
     db.close()
     return render_template('form.html', formQuestions = formQuestions, formId = id, formTitle = title, user=jsonpickle.decode(session['userOBJ']))
