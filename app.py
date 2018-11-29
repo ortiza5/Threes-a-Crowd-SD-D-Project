@@ -258,7 +258,7 @@ def formfill(id,title):
     result = cursor.execute('SELECT title FROM forminfo WHERE fid = %s', [id])
     if result > 0:
         formname = cursor.fetchall()[0][0]
-    result = cursor.execute('SELECT * FROM question WHERE fid = %s', [id])
+    result = cursor.execute('SELECT * FROM question WHERE fid = %s ORDER BY qid ASC', [id])
     if result > 0:
         data = cursor.fetchall()
         for row in data:
