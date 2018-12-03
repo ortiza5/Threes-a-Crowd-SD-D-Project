@@ -25,7 +25,9 @@
       {% else %}
         <h2 class="h1-responsive font-weight-bold my-5">View the responses</h2>
       {% endif %}
-      <form id="contact-form" name="contact-form" method="POST">
+
+
+      <form class="needs-validation" novalidate style="color: #B71C1C" action="" method="POST">
         <!--Go through all questions and render them-->
         {% for question in formQuestions %}
           {% if question.type == 'instruction' %}
@@ -69,8 +71,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="md-form mb-0">
-                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{edit}} value={{answers[question.fqid]}}>
+                        <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{question.req}} {{edit}} value={{answers[question.fqid]}}>
                         <label for={{question.fqid}} class="">{{question.question}}</label>
+                        <div class="invalid-feedback">
+                          Please provide and answer for "{{question.question}}" input
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +88,7 @@
 
           {% elif question.type == 'select' %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.fqid}} {{edit}} name={{question.fqid}}>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}} {{question.req}} {{edit}} name={{question.fqid}}>
                     <option value="" disabled="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
                       {% if option == answers[question.fqid] %}
@@ -93,6 +98,9 @@
                       {% endif %}
                     {% endfor %}
                   </select>
+                  <div class="invalid-feedback">
+                    Please provide and answer for "{{question.typeparam}}" input
+                  </div>
                 </div>
 
           {% elif question.type == 'crnsearch' %}
@@ -106,8 +114,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form mb-0">
-                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{edit}} value={{answers[question.fqid]}}>
+                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{question.req}} {{edit}} value={{answers[question.fqid]}}>
                     <label for={{question.fqid}} class="">Course CRN</label>
+                    <div class="invalid-feedback">
+                      Please provide the CRN for the course. You can use YACS to find it.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -121,17 +132,12 @@
 
           {% endif %}
         {% endfor %}
-      </form>
-
-      <div class="text-center text-md-left">
         {% if edit == '' %}
-          <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Save</a>
+          <button class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
         {% else %}
-          <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Back</a>
+          <button class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Back</button>
         {% endif %}
-      </div>
-      <div class="status"></div>
-
+      </form>
 
     </section>
     <!--Section: Form 1-->

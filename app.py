@@ -268,6 +268,10 @@ def formfill(id,title):
             newdict['question'] = row[2]
             newdict['fqid'] = str(row[0])+'-'+str(row[3])
             newdict['typeparam'] = row[4]
+            if row[5] == 1:
+                newdict['req'] = "required"
+            else:
+                newdict['req'] = ""
             formQuestions.append(newdict)
             if newdict['question'] == 'Recipient Email':
                 recipient_fqid = newdict['fqid']
@@ -364,6 +368,10 @@ def edit_filledform(username,fid,title,date_time):
             newdict['question'] = row[2]
             newdict['fqid'] = str(row[0])+'-'+str(row[3])
             newdict['typeparam'] = row[4]
+            if row[5] == 1:
+                newdict['req'] = "required"
+            else:
+                newdict['req'] = ""
             formQuestions.append(newdict)
 
     # Get the old answers from the database

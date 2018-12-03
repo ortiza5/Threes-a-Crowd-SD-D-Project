@@ -21,7 +21,7 @@
     <!--Section: Form-->
     <section class="section">
 
-      <form id="contact-form" name="contact-form" method="POST">
+      <form class="needs-validation" novalidate style="color: #B71C1C" action="" method="POST">
         <!--Go through all questions and render them-->
         {% for question in formQuestions %}
           {% if question.type == 'instruction' %}
@@ -66,8 +66,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form mb-0">
-                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value={{user.getParameter(question.question)}}>
+                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{question.req}} value={{user.getParameter(question.question)}}>
                             <label for={{question.fqid}} class="">{{question.question}}</label>
+                            <div class="invalid-feedback">
+                    					Please provide your {{question.question}}
+                    				</div>
                         </div>
                     </div>
                 </div>
@@ -76,8 +79,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form mb-0">
-                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value=''>
+                            <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{question.req}} value=''>
                             <label for={{question.fqid}} class="">{{question.question}}</label>
+                            <div class="invalid-feedback">
+                    					Please provide and answer for "{{question.question}}" input
+                    				</div>
                         </div>
                     </div>
                 </div>
@@ -90,13 +96,16 @@
 
           {% elif question.type == 'select' %}
                 <div class="md-form mb-0">
-                  <select class="browser-default custom-select md-form" id={{question.fqid}} name={{question.fqid}}>
+                  <select class="browser-default custom-select md-form" id={{question.fqid}} {{question.req}} name={{question.fqid}}>
                     <option value="" disabled="" selected="">{{question.typeparam}}</option>
                     {% for option in question.question.split(',') %}
                       <option value={{option}}>{{option}}</option>
                       <!-- incrementing the count variable -->
                     {% endfor %}
                   </select>
+                  <div class="invalid-feedback">
+                    Please provide and answer for "{{question.typeparam}}" input
+                  </div>
                 </div>
 
           {% elif question.type == 'crnsearch' %}
@@ -108,8 +117,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="md-form mb-0">
-                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" value=''>
+                    <input type="text" id={{question.fqid}} name={{question.fqid}} class="form-control" {{question.req}} value=''>
                     <label for={{question.fqid}} class="">Course CRN</label>
+                    <div class="invalid-feedback">
+                      Please provide the CRN for the course. You can use YACS to find it.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -121,13 +133,11 @@
 
           {% endif %}
         {% endfor %}
+
+        <!-- Submit button -->
+  			<button class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+
       </form>
-
-      <div class="text-center text-md-left">
-        <a class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" onclick="document.getElementById('contact-form').submit();">Submit</a>
-      </div>
-      <div class="status"></div>
-
 
     </section>
     <!--Section: Form 1-->
