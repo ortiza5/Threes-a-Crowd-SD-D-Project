@@ -19,12 +19,15 @@
 <main>
 	<div class="container mt-4">
 		<!-- Form -->
-		<form class="text-center" style="color: #B71C1C" action="" method="POST">
+		<form class="needs-validation" novalidate style="color: #B71C1C" action="" method="POST">
 
 			<!-- First -->
 			<div class="md-form">
-				<input type="text" id="materialRegisterFormFirst" class="form-control" name="first" value={{request.form.first}}>
+				<input type="text" id="materialRegisterFormFirst" class="form-control" name="first" required value={{request.form.first}}>
 				<label for="materialRegisterFormFirst">First Name</label>
+				<div class="invalid-feedback">
+					Please provide your First Name
+				</div>
 			</div>
 
 			<!-- Middle -->
@@ -35,36 +38,51 @@
 
 			<!-- Last -->
 			<div class="md-form">
-				<input type="text" id="materialRegisterFormLast" class="form-control" name="last" value={{request.form.last}}>
+				<input type="text" id="materialRegisterFormLast" class="form-control" name="last" required value={{request.form.last}}>
 				<label for="materialRegisterFormSecond">Last Name</label>
+				<div class="invalid-feedback">
+					Please provide your Last Name
+				</div>
 			</div>
 
 			<!-- RIN -->
 			<div class="md-form">
-				<input type="text" id="materialRegisterFormRIN" class="form-control" name="rin" value={{request.form.rin}}>
+				<input type="text" id="materialRegisterFormRIN" class="form-control" name="rin" required value={{request.form.rin}}>
 				<label for="materialRegisterFormRIN">RIN</label>
+				<div class="invalid-feedback">
+					Please provide a valid RIN (eg. 661234567)
+				</div>
 			</div>
 
 			<!-- Type of User -->
 			<div class="md-form">
-				<select class="browser-default custom-select md-form" name=utype>
+				<select class="browser-default custom-select md-form" required name=utype>
 					<option value="" disabled="" selected="">Select a user type</option>
 						<option value="Faculty">Faculty</option>
 						<option value="Staff">Staff</option>
 						<option value="Student">Student</option>
 				</select>
+				<div class="invalid-feedback">
+					Please select a User Type
+				</div>
 			</div>
 
 			<!-- Email -->
 			<div class="md-form">
-				<input type="email" id="materialRegisterFormEmail" class="form-control" name="email" value={{request.form.email}}>
+				<input type="email" id="materialRegisterFormEmail" class="form-control" name="email" required value={{request.form.email}}>
 				<label for="materialRegisterFormEmail">RPI E-mail Address</label>
+				<div class="invalid-feedback">
+					Please provide your your email (eg. example@test.com)
+				</div>
 			</div>
 
 			<!-- Password -->
 			<div class="md-form">
-				<input type="password" id="materialRegisterFormPassword" class="form-control" name="password" value={{request.form.password}}>
+				<input type="password" id="materialRegisterFormPassword" class="form-control" name="password" required value={{request.form.password}}>
 				<label for="materialRegisterFormPassword">Password</label>
+				<div class="invalid-feedback">
+					Please come up with a Password you will remember
+				</div>
 			</div>
 
 			<!-- Sign up button -->

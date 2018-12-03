@@ -27,18 +27,24 @@
   <div class="card-body px-lg-5 pt-0">
 
     <!-- Form -->
-    <form class="text-center" style="color: #B71C1C" action="" method="POST">
+    <form class="needs-validation" novalidate style="color: #B71C1C" action="" method="POST">
 
       <!-- Email -->
       <div class="md-form">
-        <input type="email" id="materialLoginFormEmail" class="form-control" name="email" value={{request.form.email}}>
+        <input type="email" id="materialLoginFormEmail" class="form-control" name="email" required value={{request.form.email}}>
         <label for="materialLoginFormEmail">RPI E-mail Address</label>
+        <div class="invalid-feedback">
+					Enter your your email (eg. example@test.com)
+				</div>
       </div>
 
       <!-- Password -->
       <div class="md-form">
-        <input type="password" id="materialLoginFormPassword" class="form-control" name="password" value={{request.form.password}}>
+        <input type="password" id="materialLoginFormPassword" class="form-control" name="password" required value={{request.form.password}}>
         <label for="materialLoginFormPassword">Password</label>
+        <div class="invalid-feedback">
+					Enter your Password
+				</div>
       </div>
 
       <div class="d-flex justify-content-around">
