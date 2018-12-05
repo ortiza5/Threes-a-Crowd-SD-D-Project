@@ -25,19 +25,21 @@
     <hr class="hr-dark">
 
     <div class="row mb-5">
-      <div class="col-3 grey lighten-4">
+      <div class="col-2 grey lighten-4">
         <div class="nav flex-column nav-pills mt-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <a class="nav-link active" id="v-pills-filledforms-tab" data-toggle="pill" href="#v-pills-filledforms" role="tab" aria-controls="v-pills-filledforms" aria-selected="true">Filled Forms</a>
           <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-          <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+          {% if user.getUserType() == "Staff" or user.getUserType() == "Faculty" %}
+            <a class="nav-link" id="v-pills-create-tab" data-toggle="pill" href="#v-pills-create" role="tab" aria-controls="v-pills-create" aria-selected="false">Create Form</a>
+          {% endif %}
           <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
         </div>
       </div>
-      <div class="col-9 grey lighten-5">
+      <div class="col-10 grey lighten-5">
         <div class="tab-content" id="v-pills-tabContent">
           <!--=====================================Side Tab 1=====================================-->
           <div class="tab-pane fade show active" id="v-pills-filledforms" role="tabpanel" aria-labelledby="v-pills-filledforms-tab">
-            <table class="table table-striped">
+            <table class="table table-striped text-center">
               <thead class="red darken-4 white-text">
                 <tr>
                   <th scope="col">#</th>
@@ -114,10 +116,15 @@
           </div>
 
           <!--=====================================Side Tab 3=====================================-->
-          <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-            Not Implemented Yet
-          </div>
-
+          {% if user.getUserType() == "Staff" or user.getUserType() == "Faculty" %}
+            <div class="tab-pane fade form-maker" id="v-pills-create" role="tabpanel" aria-labelledby="v-pills-create-tab">
+              <fieldset id="buildyourform">
+                <legend>Build your own form!</legend>
+              </fieldset>
+              <input type="button" value="Preview form" class="add" id="preview" />
+              <input type="button" value="Add a field" class="add" id="add" />
+            </div>
+          {% endif %}
           <!--=====================================Side Tab 4=====================================-->
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
             Not Implemented Yet
