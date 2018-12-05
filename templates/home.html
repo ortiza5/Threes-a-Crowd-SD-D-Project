@@ -20,7 +20,7 @@
 <!--Main layout-->
 <main>
   <div class="container">
-    <h2 class="h1-responsive font-weight-bold my-5 text-center">Welcome {{user}}</h2>
+    <h2 class="h1-responsive font-weight-bold my-5 text-center">Home Page for {{user}}</h2>
     <!-- Divider -->
     <hr class="hr-dark">
 
@@ -75,7 +75,7 @@
                           <a href="/update_status/{{form.fid}}/{{form.username}}/{{form.datetime}}/Approved">
                             <button type="button" class="btn btn-success btn-sm">Approve</button>
                           </a>
-                          <a href="/update_status/{{form.fid}}/{{form.username}}/{{form.datetime}}/Dennied">
+                          <a href="/update_status/{{form.fid}}/{{form.username}}/{{form.datetime}}/Denied">
                             <button type="button" class="btn btn-danger btn-sm">Deny</button>
                           </a>
                           <a href="/edit_filledform/{{form.username}}/{{form.fid}}/{{form.title}}/{{form.datetime}}">
