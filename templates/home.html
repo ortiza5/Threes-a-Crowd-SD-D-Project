@@ -159,7 +159,7 @@
                       <div class="col-4 text-center grey lighten-4">
                         <div class="my-2"><em>Example Output</em></div>
                         <div class="view overlay rounded z-depth-1">
-                          <img src={{url_for('static', filename='img/formthumbs/defaultThumbnail1.png')}} class="img-fluid" alt="Sample project image">
+                          <img src={{url_for('static', filename=("img/formthumbs/defaultThumbnail" + (range(1, 6) | random)|string + ".png"))}} class="img-fluid" alt="Sample project image">
                           <a>
                             <div class="mask rgba-white-slight"></div>
                           </a>
