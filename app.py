@@ -45,8 +45,76 @@ def is_logged_in(f):
 @app.route('/home', methods=['GET', 'POST'])
 @is_logged_in
 def home():
+    # For adding new forms with the form builder
     if request.method == 'POST':
-        pass
+        # Get a new "safe" value for fid, concurrent creation of new forms will mess it up
+        # SELECT IDENT_CURRENT(%s) does not seem to work in pymysql
+        # Open database connection
+        db = pymysql.connect(HOST,USER,PASSWORD,DBNAME)
+        # prepare a cursor object using cursor() method
+        cursor = db.cursor()
+        # execute SQL query using execute() method.
+        result = cursor.execute('SELECT MAX(fid) FROM forminfo')
+        if (result > 0):
+            new_fid = cursor.fetchone()[0] + 1
+        else :
+            new_fid = 1
+        input = request.form.to_dict()
+        old_index = 1
+        to_db_formData = {}
+        to_db_formQues = []
+        new_dict = {}
+        for key in input.keys():
+            if (key in ['formTitle','formCategory','formDescription','formLink']):
+                to_db_formData[key] = input[key]
+                continue
+            sub_fields = key.split('.')
+            if (int(sub_fields[2]) == old_index):
+                print("--------",sub_fields[1])
+                new_dict['fid'] = new_fid
+                new_dict['qid'] = sub_fields[2]
+                if (sub_fields[1] == '0'):
+                    new_dict['type'] = input[key]
+                elif (sub_fields[1] == '1'):
+                    new_dict['question'] = input[key]
+                elif (sub_fields[1] == '2'):
+                    new_dict['typeparam'] = input[key]
+                elif (sub_fields[1] == '3'):
+                    new_dict['required'] = input[key]
+            else:
+                to_db_formQues.append(new_dict)
+                new_dict = {}
+                if (sub_fields[1] == '0'):
+                    new_dict['type'] = input[key]
+                old_index = int(sub_fields[2])
+        to_db_formQues.append(new_dict)
+        cursor.execute('INSERT INTO forminfo VALUES (%s, %s, %s, %s, %s)', \
+                                                    [new_fid, \
+                                                    to_db_formData['formCategory'], \
+                                                    to_db_formData['formTitle'], \
+                                                    to_db_formData['formDescription'], \
+                                                    to_db_formData['formLink']])
+
+        print(to_db_formQues)
+        print("------------")
+        print(input)
+        print("------------")
+        for element in to_db_formQues:
+            print(element)
+            if 'required' not in element:
+                element['required'] = 0
+            cursor.execute('INSERT INTO question VALUES (%s, %s, %s, %s, %s, %s)', \
+                                                    [element['fid'], \
+                                                    element['type'], \
+                                                    element['question'], \
+                                                    element['qid'], \
+                                                    element['typeparam'], \
+                                                    element['required']])
+
+        db.commit()
+        db.close()
+
+    # For creating the home page layout
     forms = []
     user = jsonpickle.decode(session['userOBJ'])
     # Get forms that need to be displayed  in table

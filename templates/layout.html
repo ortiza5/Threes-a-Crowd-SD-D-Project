@@ -60,23 +60,28 @@
 
     $("body").on("click", "#add", function() {
       rowNum++;
-      var fieldWrapper = $("<div class=\"ignore-validate fieldwrapper input-group topLevel\" id=\"field" + rowNum + "\"/>");
+      var fieldWrapper = $("<div class=\"fieldwrapper input-group topLevel\" id=\"field" + rowNum + "\"/>");
       var removebtn = $("<button type=\"button\" class=\"no-pad-btn btn btn-cyan\" type=\"button\">" +
                           "<i class=\"fa fa-minus\" aria-hidden=\"true\"></i>" +
                         "</button>");
-      var fType = $("<select class=\"fieldtype browser-default custom-select\" name=\"input0." + rowNum + "\" id=\"input0." + rowNum + "\">" +
-                      "<option disabled selected>Choose a Type</option>" +
-                      "<option value=\"crnsearch\">CRN Search</option>" +
-                      "<option value=\"divider\">Divider</option>" +
-                      "<option value=\"instruction\">Instruction</option>" +
-                      "<option value=\"select\">Select</option>" +
-                      "<option value=\"text\">Text</option>" +
-                      "<option value=\"title\">Title</option>" +
-                    "</select>");
-      var fQuestion = $("<input type=\"text\" class=\"questionName form-control\" name=\"input1." + rowNum + "\" placeholder=\"Question Label\"/>");
-      var fParam = $("<input type=\"text\" class=\"questionParam form-control\" name=\"input2." + rowNum + "\" placeholder=\"Question parameters\"/>");
+      var fType = $("<div>" +
+                      "<select class=\"fieldtype browser-default custom-select\" required name=\"input.0." + rowNum + "\" id=\"input0." + rowNum + "\">" +
+                        "<option disabled selected>Choose a Type</option>" +
+                        "<option value=\"crnsearch\">CRN Search</option>" +
+                        "<option value=\"divider\">Divider</option>" +
+                        "<option value=\"instruction\">Instruction</option>" +
+                        "<option value=\"select\">Select</option>" +
+                        "<option value=\"text\">Text</option>" +
+                        "<option value=\"title\">Title</option>" +
+                      "</select>" +
+                      "<div class=\"invalid-feedback\"> " +
+                        "Please select a type" +
+                      "</div>" +
+                    "</div>");
+      var fQuestion = $("<input type=\"text\" class=\"questionName form-control\" name=\"input.1." + rowNum + "\" placeholder=\"Question Label\"/>");
+      var fParam = $("<input type=\"text\" class=\"questionParam form-control\" name=\"input.2." + rowNum + "\" placeholder=\"Question parameters\"/>");
       var fCheck = $("<div class=\"form-check mt-2\">" +
-                       "<input type=\"checkbox\"class=\"form-check-input\" id=\"input3." + rowNum + "\">" +
+                       "<input type=\"checkbox\"class=\"form-check-input\" id=\"input3." + rowNum + "\" name=\"input.3." + rowNum + "\" value=\"1\">" +
                        "<label class=\"form-check-label\" for=\"input3." + rowNum + "\">Required</label>" +
                      "</div>");
       removebtn.click(function() {
