@@ -176,13 +176,81 @@
                   <div class="card-header">
                     Form Questions
                   </div>
+
+
                   <div class="card-body">
-                    <div class="form-maker"></div>
                     <div class="text-center">
-                      <button class="btn btn-cyan mt-2 waves-effect z-depth-0" id="add" type="button"><i class="fa fa-plus mr-1"></i> Add a field</button>
+                      <button type="button" class="btn btn-no-hover btn-block btn-flat my-0" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="text-center mt-0">
+                            Instructions
+                        </div>
+                        <div class="text-center">
+                          <i class="fa fa-angle-down fa-4x" aria-hidden="true"></i>
+                        </div>
+                      </button>
+                    </div>
+
+                    <div class="collapse" id="collapseExample">
+                      <div class="text-center mt-3">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Type</th>
+                              <th scope="col">Question Label</th>
+                              <th scope="col">Question Parameters</th>
+                              <th scope="col">Required</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">CRN Search</th>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>Requires filling out before submit</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Divider</th>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Instruction</th>
+                              <td>Displays this Text</td>
+                              <td>-</td>
+                              <td>-</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Select</th>
+                              <td>Main Label</td>
+                              <td>Select Options (comma seperated)</td>
+                              <td>Requires filling out before submit</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Text</th>
+                              <td>Main Label: Auto-Fill compatibility (First Name, Last Name, MI, Middle Name, Email, Rensselaer ID Number)</td>
+                              <td>-</td>
+                              <td>Requires filling out before submit</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Title</th>
+                              <td>Displays this Text</td>
+                              <td>text-left or text-center</td>
+                              <td>-</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+
+
+                      <div class="form-maker"></div>
+                      <div class="text-center">
+                        <button class="btn btn-cyan mt-2 mb-2 waves-effect z-depth-0" id="add" type="button"><i class="fa fa-plus mr-1"></i> Add a field</button>
+                      </div>
                     </div>
                   </div>
-                </div>
+
 
 
                 <div class="text-center mb-4">

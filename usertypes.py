@@ -41,17 +41,17 @@ class User:
 		return "User"
 
 	def getParameter(self, param):
-		if(param == 'First Name'):
+		if(param.lower() == 'first name'):
 			return self.getFirst()
-		elif(param == 'Last Name'):
+		elif(param.lower() == 'last name'):
 			return self.getLast()
-		elif(param == 'Middle Name'):
+		elif(param.lower() == 'middle name'):
 			return self.getMiddle()
-		elif(param == 'MI'):
+		elif(param.lower() == 'mi'):
 			return self.getMiddleInitial()
-		elif(param == 'Email'):
+		elif(param.lower() == 'email'):
 			return self.getEmail()
-		elif(param in ['Rensselaer ID Number','RIN','ID Number']):
+		elif(param.lower() in ['rensselaer id number','rin','id number']):
 			return self.getIdNumber()
 		else:
 			print('AutoFill Error on: ',param)

@@ -44,6 +44,10 @@ background-attachment: fixed;
   box-shadow: 0 0 0 0.2rem rgba(128,189,255,.5);
 }
 
+.btn-no-hover.btn.btn-flat:hover{
+  background-color: rgba(244, 244, 244, 0);
+}
+
 /* html {
   height: 100%;
   box-sizing: border-box;
