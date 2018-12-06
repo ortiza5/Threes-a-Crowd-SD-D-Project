@@ -25,6 +25,25 @@ background-attachment: fixed;
   padding: 4px 7px 3px 7px;
 }
 
+.ignore-validate {
+    color: #495057;
+}
+
+.ignore-validate.custom-select.is-valid, .ignore-validate.form-control.is-valid, .was-validated .custom-select:valid, .was-validated .form-control:valid {
+    border-color: #8a8a8a;
+}
+
+.ignore-validate.form-check-input.is-valid~.ignore-validate.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
+    color: #495057;
+}
+
+
+.ignore-validate.custom-select.is-valid:focus, .ignore-validate.form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .was-validated .form-control:valid:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(128,189,255,.5);
+}
+
 /* html {
   height: 100%;
   box-sizing: border-box;

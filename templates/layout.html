@@ -60,38 +60,112 @@
 
     $("body").on("click", "#add", function() {
       rowNum++;
-      var fieldWrapper = $("<div class=\"fieldwrapper input-group\" id=\"field" + rowNum + "\"/>");
-      var removebtn = $("<button type=\"button\" class=\"no-pad-btn btn btn-cyan\">" +
+      var fieldWrapper = $("<div class=\"ignore-validate fieldwrapper input-group topLevel\" id=\"field" + rowNum + "\"/>");
+      var removebtn = $("<button type=\"button\" class=\"no-pad-btn btn btn-cyan\" type=\"button\">" +
                           "<i class=\"fa fa-minus\" aria-hidden=\"true\"></i>" +
                         "</button>");
       var fType = $("<select class=\"fieldtype browser-default custom-select\" name=\"input0." + rowNum + "\" id=\"input0." + rowNum + "\">" +
-                      "<option selected>Open this select menu</option>" +
-                      "<option value=\"1\">One</option>" +
-                      "<option value=\"2\">Two</option>" +
-                      "<option value=\"3\">Three</option>" +
+                      "<option disabled selected>Choose a Type</option>" +
+                      "<option value=\"crnsearch\">CRN Search</option>" +
+                      "<option value=\"divider\">Divider</option>" +
+                      "<option value=\"instruction\">Instruction</option>" +
+                      "<option value=\"select\">Select</option>" +
+                      "<option value=\"text\">Text</option>" +
+                      "<option value=\"title\">Title</option>" +
                     "</select>");
-      var fName = $("<input type=\"text\" class=\"form-control\" name=\"input1." + rowNum + "\" placeholder=\"Question Label\"/>");
-      var fName2 = $("<input type=\"text\" class=\"form-control\" name=\"input2." + rowNum + "\" placeholder=\"Question parameters\"/>");
-      var fcheck = $("<div class=\"form-check mt-2\" name=\"input3." + rowNum + "\" id=\"input3." + rowNum + "\">" +
-                       "<input type=\"checkbox\"class=\"form-check-input\" id=\"materialUnchecked\">" +
-                       "<label class=\"form-check-label\" for=\"materialUnchecked\">Required</label>" +
+      var fQuestion = $("<input type=\"text\" class=\"questionName form-control\" name=\"input1." + rowNum + "\" placeholder=\"Question Label\"/>");
+      var fParam = $("<input type=\"text\" class=\"questionParam form-control\" name=\"input2." + rowNum + "\" placeholder=\"Question parameters\"/>");
+      var fCheck = $("<div class=\"form-check mt-2\">" +
+                       "<input type=\"checkbox\"class=\"form-check-input\" id=\"input3." + rowNum + "\">" +
+                       "<label class=\"form-check-label\" for=\"input3." + rowNum + "\">Required</label>" +
                      "</div>");
       removebtn.click(function() {
           $(this).parent().remove();
       });
       fieldWrapper.append(removebtn);
       fieldWrapper.append(fType);
-      fieldWrapper.append(fName);
-      fieldWrapper.append(fName2);
-      fieldWrapper.append(fcheck);
+      fieldWrapper.append(fQuestion);
+      fieldWrapper.append(fParam);
+      fieldWrapper.append(fCheck);
       $(".form-maker").append(fieldWrapper);
     });
     $("body").on("click", "#preview", function() {
       $("#previewform").remove();
-      var previewView = $("<div id=\"previewform\"></div>")
+      var previewView = $("<div class=\"card border-primary mb-3\" id=\"previewform\"><div class=\"card-header\">Form Preview</div></div>");
+      var cardBody = $("<div class=\"card-body\"></div>");
+      $(".form-maker .topLevel").each(function() {
+          var id = "input" + $(this).attr("id").replace("field","");
+          var question = $(this).find("input.questionName").first().val();
+          var param = $(this).find("input.questionParam").first().val();
+          var element;
+          switch ($(this).find("select.fieldtype").first().val()) {
+            case "crnsearch":
+              element = $( "" +
+                "<div class=\"row\">" +
+                  "<a href=\"https://yacs.cs.rpi.edu/\" target=\"_blank\">" +
+                    "<button type=\"button\" class=\"btn btn-primary btn-sm mt-4\">Find CRN on YACS</button>" +
+                  "</a>" +
+                  "<div class=\"row\">" +
+                    "<div class=\"col-md-12\">" +
+                      "<div class=\"md-form mb-0\">" +
+                        "<input type=\"text\" id=" + id + " name=" + id + " class=\"form-control\" value=\'\'>" +
+                        "<label for=" + id + " class=\"\">Course CRN</label>" +
+                      "</div>" +
+                    "</div>" +
+                  "</div>" +
+                "</div>");
+              break;
+            case "divider":
+              element = $( "<hr class=\"hr-dark\">");
+              break;
+            case "instruction":
+              element = $( "" +
+                "<div class=\"row\">" +
+                  "<div class=\"col-md-12\">" +
+                    "<div class=\"md-form my-0\">" +
+                      "<blockquote>" + question + "</blockquote>" +
+                    "</div>" +
+                  "</div>" +
+                "</div>");
+              break;
+            case "select":
+              var selectElement = "" +
+                "<div class=\"md-form mb-0\">" +
+                  "<select class=\"browser-default custom-select md-form\" id=" + id + " name=" + id + ">" +
+                    "<option value=\"\" disabled=\"\" selected=\"\">" + question + "</option>";
+                    var options = param.split(",");
+                    for (i=0;i<options.length;i++){
+                      selectElement += "<option value=" + options[i] + ">" + options[i] + "</option>";
+                    }
+                    selectElement += "</select></div>";
+              element = $("" + selectElement + "");
+              break;
+            case "text":
+              element = $( "" +
+                "<div class=\"row\">" +
+                  "<div class=\"col-md-12\">" +
+                      "<div class=\"md-form mb-0\">" +
+                          "<input type=\"text\" id=" + id + " name=" + id + " class=\"form-control\" value=\'\'>" +
+                          "<label for=" + id + " class=\"\">" + question + "</label>" +
+                      "</div>" +
+                  "</div>" +
+                "</div>");
+              break;
+            case "title":
+              element = $( "" +
+                "<div class=\"row\">" +
+                  "<div class=\"col-md-12\">" +
+                    "<div class=\"md-form mb-0\">" +
+                      "<h3 class=\"" + param + " font-weight-bold\">" + question + "</h3>" +
+                    "</div>" +
+                  "</div>" +
+              "</div>");
+              break;
+          }
 
-
-
+          cardBody.append(element);
+      });
+      previewView.append(cardBody);
       $(".form-builder").append(previewView);
     });
   </script>

@@ -118,37 +118,75 @@
           <!--=====================================Side Tab 3=====================================-->
           {% if user.getUserType() == "Staff" or user.getUserType() == "Faculty" %}
             <div class="tab-pane fade form-builder" id="v-pills-create" role="tabpanel" aria-labelledby="v-pills-create-tab">
-              <h2 class="card-header info-color white-text text-center my-2 red darken-4">
-                <strong>Form Builder</strong>
-              </h2>
-              <div class="card mt-4 mb-4">
-                <div class="card-header">
-                  Form Details
-                </div>
-                <div class="card-body">
+              <form class="needs-validation" novalidate action="" method="POST">
+                <h2 class="card-header info-color white-text text-center my-2 red darken-4">
+                  <strong>Form Builder</strong>
+                </h2>
+                <div class="card mt-4 mb-4">
+                  <div class="card-header">
+                    Form Details
+                  </div>
 
-                </div>
-              </div>
-
-
-              <div class="card mb-4">
-                <div class="card-header">
-                  Form Questions
-                </div>
-                <div class="card-body">
-                  <div class="form-maker"></div>
-                  <div class="text-center">
-                    <button class="btn btn-cyan mt-2 waves-effect z-depth-0" id="add"><i class="fa fa-plus mr-1"></i> Add a field</button>
+                  <div class="card-body">
+                    <div class="row align-middle justify-content-center">
+                      <div class="col-7">
+                        <div class="md-form mr-2 mb-0">
+                            <input type="text" id="formTitle" name="formTitle" class="form-control" required value="">
+                            <label for="formTitle">Form title</label>
+                            <div class="invalid-feedback">
+                              Please provide a form title
+                            </div>
+                        </div>
+                        <div class="md-form mr-2 mb-0">
+                            <input type="text" id="formCategory" name="formCategory" class="form-control" required value="">
+                            <label for="formCategory">Form category</label>
+                            <div class="invalid-feedback">
+                              Please provide a form category
+                            </div>
+                        </div>
+                        <div class="md-form mr-2 mb-0">
+                            <textarea type="text" id="formDescription" name="formDescription" class="md-textarea form-control" required value="" rows="3"></textarea>
+                            <label for="formDescription">Form description</label>
+                            <div class="invalid-feedback">
+                              Please provide a form description
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-4 text-center grey lighten-4">
+                        <div class="my-2"><em>Example Output</em></div>
+                        <div class="view overlay rounded z-depth-1">
+                          <img src={{url_for('static', filename='img/formthumbs/defaultThumbnail1.png')}} class="img-fluid" alt="Sample project image">
+                          <a>
+                            <div class="mask rgba-white-slight"></div>
+                          </a>
+                        </div>
+                        <h4 class="font-weight-bold my-3">Form Title Here</h4>
+                        <p class="grey-text">Form description here</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
 
-              <div class="text-center">
-                <button class="btn btn-indigo waves-effect z-depth-0" id="preview">Preview</button>
-                <button class="btn btn-primary waves-effect z-depth-0">Post Form</button>
+                <div class="card mb-4">
+                  <div class="card-header">
+                    Form Questions
+                  </div>
+                  <div class="card-body">
+                    <div class="form-maker"></div>
+                    <div class="text-center">
+                      <button class="btn btn-cyan mt-2 waves-effect z-depth-0" id="add" type="button"><i class="fa fa-plus mr-1"></i> Add a field</button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="text-center mb-4">
+                  <button class="btn btn-indigo waves-effect z-depth-0" id="preview" type="button">Preview</button>
+                  <button class="btn btn-primary waves-effect z-depth-0" type="submit">Post Form</button>
+                </div>
               </div>
-            </div>
+            </form>
           {% endif %}
           <!--=====================================Side Tab 4=====================================-->
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">

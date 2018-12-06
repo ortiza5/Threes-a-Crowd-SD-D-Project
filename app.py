@@ -42,9 +42,11 @@ def is_logged_in(f):
 
 
 # Home
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 @is_logged_in
 def home():
+    if request.method == 'POST':
+        pass
     forms = []
     user = jsonpickle.decode(session['userOBJ'])
     # Get forms that need to be displayed  in table

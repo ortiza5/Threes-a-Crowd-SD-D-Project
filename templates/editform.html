@@ -41,23 +41,12 @@
             </div>
             <!--Grid row-->
 
-          {% elif question.type == 'title-left' %}
+          {% elif question.type == 'title' %}
             <!--Grid row-->
             <div class="row">
               <div class="col-md-12">
                 <div class="md-form mb-0">
-                  <h3 class="text-left font-weight-bold">{{question.question}}</h3>
-                </div>
-              </div>
-            </div>
-            <!--Grid row-->
-
-          {% elif question.type == 'title-center' %}
-            <!--Grid row-->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="md-form mb-0">
-                  <h3 class="text-center font-weight-bold">{{question.question}}</h3>
+                  <h3 class="{{question.typeparam}} font-weight-bold">{{question.question}}</h3>
                 </div>
               </div>
             </div>
@@ -89,8 +78,8 @@
           {% elif question.type == 'select' %}
                 <div class="md-form mb-0">
                   <select class="browser-default custom-select md-form" id={{question.fqid}} {{question.req}} {{edit}} name={{question.fqid}}>
-                    <option value="" disabled="">{{question.typeparam}}</option>
-                    {% for option in question.question.split(',') %}
+                    <option value="" disabled="">{{question.question}}</option>
+                    {% for option in question.typeparam.split(',') %}
                       {% if option == answers[question.fqid] %}
                         <option value={{option}} selected="">{{option}}</option>
                       {% else %}
@@ -99,7 +88,7 @@
                     {% endfor %}
                   </select>
                   <div class="invalid-feedback">
-                    Please provide and answer for "{{question.typeparam}}" input
+                    Please provide and answer for "{{question.question}}" input
                   </div>
                 </div>
 
