@@ -64,6 +64,9 @@
       var removebtn = $("<button type=\"button\" class=\"no-pad-btn btn btn-cyan\" type=\"button\">" +
                           "<i class=\"fa fa-minus\" aria-hidden=\"true\"></i>" +
                         "</button>");
+      var removebtnD = $("<button type=\"button\" disabled class=\"no-pad-btn btn btn-cyan\" type=\"button\">" +
+                          "<i class=\"fa fa-minus\" aria-hidden=\"true\"></i>" +
+                        "</button>");
       var fType = $("<div>" +
                       "<select class=\"fieldtype browser-default custom-select\" required name=\"input.0." + rowNum + "\" id=\"input0." + rowNum + "\">" +
                         "<option value=\"\" disabled=\"\" selected=\"\">Choose a Type</option>" +
@@ -87,7 +90,14 @@
       removebtn.click(function() {
           $(this).parent().remove();
       });
-      fieldWrapper.append(removebtn);
+
+      // TEMPORARY FIX - NEED TO LOOK INTO
+      if (rowNum != 1) {
+          fieldWrapper.append(removebtn);
+      } else {
+          fieldWrapper.append(removebtnD);
+      }
+      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       fieldWrapper.append(fType);
       fieldWrapper.append(fQuestion);
       fieldWrapper.append(fParam);
