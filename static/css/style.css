@@ -21,6 +21,9 @@ header {
 background-attachment: fixed;
 }
 
+.no-pad-btn {
+  padding: 4px 7px 3px 7px;
+}
 
 /* html {
   height: 100%;

@@ -11,10 +11,10 @@
   <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="{{ url_for('static',filename='css/mdb.min.css') }}" rel="stylesheet">
-  <!-- Custom styles separate from MDB -->
-  <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
   <!--  -->
   <link href="{{ url_for('static',filename='css/compiled-4.5.15.min.css') }}" rel="stylesheet">
+  <!-- Custom styles separate from MDB -->
+  <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
@@ -56,26 +56,49 @@
     })();
   </script>
   <script type="text/javascript">
-    $(document).ready(function() {
-    $("#add").click(function() {
-        var lastField = $("#buildyourform div:last");
-        var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
-        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
-        fieldWrapper.data("idx", intId);
-        var fName = $("<input type=\"text\" class=\"fieldname\" />");
-        var fType = $("<select class=\"fieldtype browser-default custom-select md-form\"><option value=\"checkbox\">Checked</option><option value=\"textbox\">Text</option><option value=\"textarea\">Paragraph</option></select>");
-        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
-        removeButton.click(function() {
-            $(this).parent().remove();
-        });
-        fieldWrapper.append(fName);
-        fieldWrapper.append(fType);
-        fieldWrapper.append(removeButton);
-        $("#buildyourform").append(fieldWrapper);
+    var rowNum = 0;
+
+    $("body").on("click", "#add", function() {
+      rowNum++;
+      var fieldWrapper = $("<div class=\"fieldwrapper input-group\" id=\"field" + rowNum + "\"/>");
+      var removebtn = $("<button type=\"button\" class=\"no-pad-btn btn btn-cyan\">" +
+                          "<i class=\"fa fa-minus\" aria-hidden=\"true\"></i>" +
+                        "</button>");
+      var fType = $("<select class=\"fieldtype browser-default custom-select\" name=\"input0." + rowNum + "\" id=\"input0." + rowNum + "\">" +
+                      "<option selected>Open this select menu</option>" +
+                      "<option value=\"1\">One</option>" +
+                      "<option value=\"2\">Two</option>" +
+                      "<option value=\"3\">Three</option>" +
+                    "</select>");
+      var fName = $("<input type=\"text\" class=\"form-control\" name=\"input1." + rowNum + "\" placeholder=\"Question Label\"/>");
+      var fName2 = $("<input type=\"text\" class=\"form-control\" name=\"input2." + rowNum + "\" placeholder=\"Question parameters\"/>");
+      var fcheck = $("<div class=\"form-check mt-2\" name=\"input3." + rowNum + "\" id=\"input3." + rowNum + "\">" +
+                       "<input type=\"checkbox\"class=\"form-check-input\" id=\"materialUnchecked\">" +
+                       "<label class=\"form-check-label\" for=\"materialUnchecked\">Required</label>" +
+                     "</div>");
+      removebtn.click(function() {
+          $(this).parent().remove();
+      });
+      fieldWrapper.append(removebtn);
+      fieldWrapper.append(fType);
+      fieldWrapper.append(fName);
+      fieldWrapper.append(fName2);
+      fieldWrapper.append(fcheck);
+      $(".form-maker").append(fieldWrapper);
     });
+    $("body").on("click", "#preview", function() {
+      $("#previewform").remove();
+      var previewView = $("<div id=\"previewform\"></div>")
+
+
+
+      $(".form-builder").append(previewView);
+    });
+  </script>
+  <!-- <script type="text/javascript">
     $("#preview").click(function() {
-        $("#yourform").remove();
-        var fieldSet = $("<fieldset id=\"yourform\"><legend>Your Form</legend></fieldset>");
+        $("#previewform").remove();
+        var fieldSet = $("<fieldset id=\"previewform\"><legend>Your Form</legend></fieldset>");
         $("#buildyourform div").each(function() {
             var id = "input" + $(this).attr("id").replace("field","");
             var label = $("<label for=\"" + id + "\">" + $(this).find("input.fieldname").first().val() + "</label>");
@@ -97,13 +120,8 @@
         $(".form-maker").append(fieldSet);
     });
   });
-  </script>
-  <style media="screen">
-    body
-    {
-      font-family:Gill Sans MT;
-      padding:10px;
-    }
+  </script> -->
+  <!-- <style media="screen">
     fieldset
     {
       border: solid 1px #000;
@@ -141,21 +159,21 @@
       display:block;
       margin:5px;
     }
-    #yourform label
+    #previewform label
     {
       float:left;
       clear:left;
       display:block;
       margin:5px;
     }
-    #yourform input, #yourform textarea
+    #previewform input, #previewform textarea
     {
       float:left;
       display:block;
       margin:5px;
     }
 
-  </style>
+  </style> -->
 
 </body>
 </html>
