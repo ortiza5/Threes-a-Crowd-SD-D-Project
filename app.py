@@ -252,7 +252,8 @@ def register():
             try:
                 newpass = sha256_crypt.hash(password)
                 # Execute the SQL command
-                cursor.execute('INSERT INTO user VALUES (%s, %s, %s, %s, %s, %s, %s)', [email, newpass, utype, first, middle, last, rin])
+                # cursor.execute('INSERT INTO user VALUES (%s, %s, %s, %s, %s, %s, %s)', [email, newpass, utype, first, middle, last, rin])
+                cursor.execute('INSERT INTO user VALUES (%s, %s, %s, %s, %s, %s, %s)', [email, newpass, 'Student', first, middle, last, rin])
                 # Commit your changes in the database
                 db.commit()
                 print('added user')
