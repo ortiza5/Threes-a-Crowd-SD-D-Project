@@ -451,8 +451,7 @@ def delete_filledform(fid, owner, date_time):
 
 
 # display a filled form when user clicks that form in dashboard
-@app.route('/edit_filledform/<string:username>/<int:fid>/<string:title> \
-           /<string:date_time>', methods=['GET', 'POST'])
+@app.route('/edit_filledform/<string:username>/<int:fid>/<string:title>/<string:date_time>', methods=['GET', 'POST'])
 @is_logged_in
 def edit_filledform(username, fid, title, date_time):
     formQuestions = []
@@ -521,8 +520,7 @@ def edit_filledform(username, fid, title, date_time):
 
 
 # Updates the status of the form to Approved or Dennied
-@app.route('/update_status/<int:fid>/<string:owner>/<string:date_time> \
-           /<string:status>', methods=['GET', 'POST'])
+@app.route('/update_status/<int:fid>/<string:owner>/<string:date_time>/<string:status>', methods=['GET', 'POST'])
 @is_logged_in
 def update_status(fid, owner, status, date_time):
     # Open database connection
